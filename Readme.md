@@ -1,3 +1,3 @@
 ## Flash Bang
 
-> A customizable flash card game!
+> A customizable flash card game......?!
