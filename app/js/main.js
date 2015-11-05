@@ -117,7 +117,13 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/users/register',
-      method: 'POST'
+      method: 'POST',
+      data: {
+        username: 'jonnywarren',
+        fullname: 'jonny warren',
+        email: 'jonnywarren06@gmail.com',
+        password: 'jonnywarren'
+      }
     });
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
@@ -139,7 +145,11 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/users/login',
-      method: 'POST'
+      method: 'POST',
+      data: {
+        username: 'jonnywarren',
+        password: 'jonnywarren'
+      }
     });
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {

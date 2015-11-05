@@ -37,6 +37,12 @@ export default Backbone.Router.extend({
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/users/register`,
       method: 'POST',
+      data: {
+        username: 'jonnywarren',
+        fullname: 'jonny warren',
+        email: 'jonnywarren06@gmail.com',
+        password: 'jonnywarren'
+      }
     });
     $('.app').html('loading...');
     request.then((data) => {
@@ -57,6 +63,10 @@ export default Backbone.Router.extend({
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/users/login`,
       method: 'POST',
+      data: {
+        username: 'jonnywarren',
+        password: 'jonnywarren'
+      }
     });
     $('.app').html('loading...');
     request.then((data) => {
