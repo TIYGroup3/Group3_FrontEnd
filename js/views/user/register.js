@@ -4,7 +4,7 @@ export default React.createClass({
 
   registerButton() {
     return (
-      <button onClick={this.props.onRegisterClick}>
+      <button id="submitButton" onClick={this.props.onRegisterClick}>
         Register
       </button>
     );
@@ -13,10 +13,10 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <label className="input">Username: <input type="text" className="name"/></label>
-        <label className="input">Full Name: <input type="text" className="fullname"/></label>
-        <label className="input">Email: <input type="text" className="email"/></label>
-        <label className="input">Password: <input type="text" className="password"/></label>
+        <label className="input">Username: <input type="text" id="username"/></label>
+        <label className="input">Full Name: <input type="text" id="fullname"/></label>
+        <label className="input">Email: <input type="text" id="email"/></label>
+        <label className="input">Password: <input type="text" id="password"/></label>
         {this.registerButton()}
       </div>
     );
