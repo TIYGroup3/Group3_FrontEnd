@@ -13,13 +13,19 @@ export default React.createClass({
 
   render() {
     return (
-      <div>
-        <Input/>
+
+      <div className="deckTable">
+        <div className="newCard">
+          <p>Add a Card</p>
+          <Input/>
+        </div>
         <table>
           <Column headingData={this.getHeadingData()}/>
           <Grid data={this.props.people}/>
         </table>
       </div>
+
+
     );
   }
 

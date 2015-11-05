@@ -7,11 +7,18 @@ body {
 }
 
 table {
+  margin: 25px auto;
   td, th {
     border: 1px solid black;
     padding: 5px;
     width: 200px;
   }
+}
+
+.addCardTA {
+  display: inline-block;
+  text-align: left;
+  margin: 10px;
 }
 
 .container {
