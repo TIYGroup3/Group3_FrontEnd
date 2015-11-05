@@ -96,7 +96,9 @@ var _dummy_data2 = _interopRequireDefault(_dummy_data);
 exports['default'] = _backbone2['default'].Router.extend({
 
   routes: {
-    '': 'loginPage',
+    '': 'home',
+
+    'loginPage': 'loginPage',
     'login': 'login',
     'logout': 'logout',
 
@@ -105,9 +107,35 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     'userPage': 'userPage',
 
-    'deckDetail': 'deckDetail',
-    'addCard': 'addCard'
+    'deckDetail/:id': 'deckDetail',
+    'addCard': 'addCard',
 
+    'checkUser': 'checkUser'
+
+  },
+
+  checkUser: function checkUser() {
+    // console.log('sad panda');
+    if (_jsCookie2['default'].get('user')) {
+      this.redirect('userPage');
+    } else {
+      this.redirect('loginPage');
+    }
+  },
+
+  home: function home() {
+    // if logged in, redirect to user page; else redirect to loginPage
+    // function to find username, call in view page, $$$$???? blargenblahghernaoijasfdlikbncklxjnfal
+    // this.redirect()
+    // method check user: read cookie, if cookie, return user info
+    // let user = this.props.user;
+    this.navigate('checkUser', { trigger: true });
+    // checkUser();
+    // if (user) {
+    //   this.redirect('userPage');
+    // } else {
+    //   this.redirect('loginPage');
+    // }
   },
 
   start: function start() {
@@ -207,10 +235,6 @@ exports['default'] = _backbone2['default'].Router.extend({
       }
     });
     this.redirect('');
-  },
-
-  home: function home() {
-    //FIXME:  Add landing page
   },
 
   loginPage: function loginPage() {
