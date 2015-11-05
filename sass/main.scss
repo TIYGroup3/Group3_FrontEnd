@@ -1,0 +1,60 @@
+@import "bourbon";
+@import "neat";
+@import "font-awesome";
+
+body {
+  background: #e2ebf3;
+}
+
+table {
+  margin: 25px auto;
+  td, th {
+    border: 1px solid black;
+    padding: 5px;
+    width: 200px;
+  }
+}
+
+.addCardTA {
+  display: inline-block;
+  text-align: left;
+  margin: 10px;
+}
+
+.container {
+  margin: 20px auto;
+  text-align: center;
+}
+
+.app {
+  border: 1px solid grey;
+}
+
+.login {
+
+  .input {
+    display: block;
+    margin-bottom: 5px;
+    text-align: right;
+    margin-right: 40%;
+  }
+
+  button {
+    margin: 10px 5px;
+  }
+}
+
+.register {
+
+  .input {
+    display: block;
+    margin-bottom: 5px;
+    text-align: right;
+    margin-right: 40%;
+  }
+
+  button {
+    margin: 10px 0;
+  }
+}
+
