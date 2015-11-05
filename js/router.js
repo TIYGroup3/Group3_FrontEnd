@@ -14,7 +14,9 @@ import Data from './dummy_data';
 export default Backbone.Router.extend({
 
   routes: {
-    ''         : 'loginPage',
+    ''         : 'home',
+
+    'loginPage': 'loginPage',
     'login'    : 'login',
     'logout'   : 'logout',
 
@@ -23,9 +25,35 @@ export default Backbone.Router.extend({
 
     'userPage' : 'userPage',
 
-    'deckDetail' : 'deckDetail',
+    'deckDetail/:id' : 'deckDetail',
     'addCard'  : 'addCard',
 
+    'checkUser' : 'checkUser',
+
+  },
+
+  checkUser() {
+    // console.log('sad panda');
+    if (Cookies.get('user')) {
+      this.redirect('userPage');
+    } else {
+      this.redirect('loginPage');
+    }
+  },
+
+  home() {
+    // if logged in, redirect to user page; else redirect to loginPage
+    // function to find username, call in view page, $$$$???? blargenblahghernaoijasfdlikbncklxjnfal
+    // this.redirect()
+    // method check user: read cookie, if cookie, return user info
+    // let user = this.props.user;
+    this.navigate('checkUser', {trigger: true});
+    // checkUser();
+    // if (user) {
+    //   this.redirect('userPage');
+    // } else {
+    //   this.redirect('loginPage');
+    // }
   },
 
   start() {
@@ -121,10 +149,6 @@ export default Backbone.Router.extend({
       }
     });
     this.redirect('');
-  },
-
-  home() {
-    //FIXME:  Add landing page
   },
 
   loginPage() {
