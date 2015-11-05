@@ -44,11 +44,6 @@ new _router2['default']().start();
 
 console.log('Hello, World');
 
-<<<<<<< HEAD
-},{"./router":3,"jquery":41,"moment":43,"underscore":175}],3:[function(require,module,exports){
-=======
-},{"./router":3,"jquery":14,"moment":16,"underscore":174}],3:[function(require,module,exports){
->>>>>>> master
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -147,9 +142,9 @@ exports['default'] = _backbone2['default'].Router.extend({
           auth_token: data.access_token
         }
       });
-      _this.redirect('');
+      _this.redirect('userPage');
     }).fail(function () {
-      (0, _jquery2['default'])('.app').html('Oops..');
+      (0, _jquery2['default'])('.app').html('Submit again');
     });
   },
 
@@ -173,9 +168,9 @@ exports['default'] = _backbone2['default'].Router.extend({
           auth_token: data.access_token
         }
       });
-      _this2.redirect('loginPage');
+      _this2.redirect('userPage');
     }).fail(function () {
-      (0, _jquery2['default'])('.app').html('Oops..');
+      (0, _jquery2['default'])('.app').html('Try again');
     });
   },
 
@@ -227,6 +222,9 @@ exports['default'] = _backbone2['default'].Router.extend({
       },
       onLogoutClick: function () {
         return _this3.navigate('logout', { trigger: true });
+      },
+      onRegisterPageClick: function () {
+        return _this3.navigate('registerPage', { trigger: true });
       } }), document.querySelector('.app'));
   },
 
@@ -557,7 +555,7 @@ exports["default"] = _react2["default"].createClass({
       return _react2["default"].createElement(
         "span",
         null,
-        "You are not logged in"
+        "Log in to continue..."
       );
     }
   },
@@ -575,9 +573,18 @@ exports["default"] = _react2["default"].createClass({
       );
     } else {
       return _react2["default"].createElement(
-        "button",
-        { onClick: this.props.onLoginClick },
-        "Log in"
+        "div",
+        null,
+        _react2["default"].createElement(
+          "button",
+          { onClick: this.props.onLoginClick },
+          "Log in"
+        ),
+        _react2["default"].createElement(
+          "button",
+          { onClick: this.props.onRegisterPageClick },
+          "Register"
+        )
       );
     }
   },
@@ -585,7 +592,12 @@ exports["default"] = _react2["default"].createClass({
   render: function render() {
     return _react2["default"].createElement(
       "div",
-      null,
+      { className: "login" },
+      _react2["default"].createElement(
+        "h2",
+        null,
+        "Flash Bang"
+      ),
       _react2["default"].createElement(
         "label",
         { className: "input" },
@@ -603,7 +615,11 @@ exports["default"] = _react2["default"].createClass({
         null,
         this.getStatus()
       ),
-      this.loginButton()
+      _react2["default"].createElement(
+        "div",
+        null,
+        this.loginButton()
+      )
     );
   }
 
@@ -637,7 +653,12 @@ exports["default"] = _react2["default"].createClass({
   render: function render() {
     return _react2["default"].createElement(
       "div",
-      null,
+      { className: "register" },
+      _react2["default"].createElement(
+        "h2",
+        null,
+        "Create a new account"
+      ),
       _react2["default"].createElement(
         "label",
         { className: "input" },
@@ -653,7 +674,7 @@ exports["default"] = _react2["default"].createClass({
       _react2["default"].createElement(
         "label",
         { className: "input" },
-        "Email: ",
+        "Email address: ",
         _react2["default"].createElement("input", { type: "text", id: "email" })
       ),
       _react2["default"].createElement(

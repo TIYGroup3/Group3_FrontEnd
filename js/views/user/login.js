@@ -11,7 +11,7 @@ export default React.createClass({
       );
     } else {
       return (
-        <span>You are not logged in</span>
+        <span>Log in to continue...</span>
       );
     }
   },
@@ -29,20 +29,26 @@ export default React.createClass({
       );
     } else {
       return (
-        <button onClick={this.props.onLoginClick}>
-          Log in
-        </button>
+        <div>
+          <button onClick={this.props.onLoginClick}>
+            Log in
+          </button>
+          <button onClick={this.props.onRegisterPageClick}>
+            Register
+          </button>
+        </div>
       );
     }
   },
 
   render() {
     return (
-      <div>
+      <div className="login">
+        <h2>Flash Bang</h2>
         <label className="input">Username: <input type="text" id="username"/></label>
         <label className="input">Password: <input type="text" id="password"/></label>
         <div>{this.getStatus()}</div>
-        {this.loginButton()}
+        <div>{this.loginButton()}</div>
       </div>
     );
   }
