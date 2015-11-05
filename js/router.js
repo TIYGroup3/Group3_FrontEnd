@@ -58,9 +58,9 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('');
+      this.redirect('userPage');
     }).fail(() => {
-      $('.app').html('Oops..');
+      $('.app').html('Submit again');
     });
   },
 
@@ -82,9 +82,9 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('loginPage');
+      this.redirect('userPage');
     }).fail(() => {
-      $('.app').html('Oops..');
+      $('.app').html('Try again');
     });
   },
 
@@ -131,7 +131,8 @@ export default Backbone.Router.extend({
       <LoginPage
         user={Cookies.getJSON('user')}
         onLoginClick={() => this.navigate('login', {trigger: true})}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}/>,
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onRegisterPageClick={() => this.navigate('registerPage', {trigger: true})}/>,
       document.querySelector('.app')
     );
   },
