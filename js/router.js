@@ -13,14 +13,18 @@ import Data from './dummy_data';
 export default Backbone.Router.extend({
 
   routes: {
-    ''         : 'home',
-    'loginPage': 'loginPage',
+    ''         : 'loginPage',
     'login'    : 'login',
     'logout'   : 'logout',
+
     'registerPage' : 'registerPage',
     'register' : 'register',
-    'deck'     : 'deck',
-    'addCard'  : 'addCard'
+
+    'userPage' : 'userPage',
+
+    'deckDetail'     : 'deckDetail',
+    'addCard'  : 'addCard',
+
   },
 
   start() {
@@ -141,7 +145,7 @@ export default Backbone.Router.extend({
     );
   },
 
-  deck() {
+  deckDetail() {
     ReactDom.render(
       <Table 
       people={Data}
