@@ -30,6 +30,20 @@ table {
   border: 1px solid grey;
 }
 
+<<<<<<< HEAD
+.deck-container {
+  @include outer-container(100%);
+}
+
+.deckSelect {
+  @include span-columns(4);
+  @include omega(3n);
+  height: 300px;
+  border: 1px solid grey;
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+=======
 .login {
 
   .input {
@@ -56,5 +70,6 @@ table {
   button {
     margin: 10px 0;
   }
+>>>>>>> master
 }
 
