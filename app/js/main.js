@@ -541,8 +541,9 @@ exports["default"] = _react2["default"].createClass({
 
   getStatus: function getStatus() {
     var user = this.props.user;
+    console.log(user);
     if (user) {
-      var mesg = "Welcome " + user;
+      var mesg = "Welcome " + user.user.username;
       return _react2["default"].createElement(
         "span",
         null,
