@@ -7,6 +7,7 @@ import $ from 'jquery';
 import Register from './views/user/register';
 import LoginPage from './views/user/login';
 import Table from './views/deck/table';
+import UserPage from './views/user/user_page';
 
 import Data from './dummy_data';
 
@@ -22,7 +23,7 @@ export default Backbone.Router.extend({
 
     'userPage' : 'userPage',
 
-    'deckDetail'     : 'deckDetail',
+    'deckDetail' : 'deckDetail',
     'addCard'  : 'addCard',
 
   },
@@ -142,6 +143,13 @@ export default Backbone.Router.extend({
       <Register 
         user={Cookies.getJSON('user')}
         onRegisterClick={() => this.navigate('register', {trigger: true})}/>,
+      document.querySelector('.app')
+    );
+  },
+
+  userPage() {
+    ReactDom.render(
+      <UserPage/>,
       document.querySelector('.app')
     );
   },

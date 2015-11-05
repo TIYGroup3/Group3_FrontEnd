@@ -2046,6 +2046,33 @@ table {
 .app {
   border: 1px solid grey; }
 
+<<<<<<< HEAD
+.deck-container {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+  .deck-container::after {
+    clear: both;
+    content: "";
+    display: table; }
+
+.deckSelect {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 31.76157%;
+  height: 300px;
+  border: 1px solid grey;
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  .deckSelect:last-child {
+    margin-right: 0; }
+  .deckSelect:nth-child(3n) {
+    margin-right: 0; }
+  .deckSelect:nth-child(3n+1) {
+    clear: left; }
+=======
 .login .input {
   display: block;
   margin-bottom: 5px;
@@ -2063,5 +2090,6 @@ table {
 
 .register button {
   margin: 10px 0; }
+>>>>>>> master
 
 /*# sourceMappingURL=main.css.map */
