@@ -2027,10 +2027,17 @@ html {
 body {
   background: #e2ebf3; }
 
-table td, table th {
-  border: 1px solid black;
-  padding: 5px;
-  width: 200px; }
+table {
+  margin: 25px auto; }
+  table td, table th {
+    border: 1px solid black;
+    padding: 5px;
+    width: 200px; }
+
+.addCardTA {
+  display: inline-block;
+  text-align: left;
+  margin: 10px; }
 
 .container {
   margin: 20px auto;

@@ -13,8 +13,9 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <label className="input">Front: <input type="text" className="front"/></label>
-        <label className="input">Back: <input type="text" className="back"/></label>
+        <label className="addCardTA">Front: <br/><textarea type="text" className="front"/></label>
+        <label className="addCardTA">Back: <br/><textarea type="text" className="back"/></label>
+        <br/>
         {this.submitCard()}
       </div>
     );
