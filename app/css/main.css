@@ -2032,4 +2032,11 @@ table td, table th {
   padding: 5px;
   width: 200px; }
 
+.container {
+  margin: 20px auto;
+  text-align: center; }
+
+.app {
+  border: 1px solid grey; }
+
 /*# sourceMappingURL=main.css.map */

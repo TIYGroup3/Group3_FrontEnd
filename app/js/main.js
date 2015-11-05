@@ -92,14 +92,18 @@ var _dummy_data2 = _interopRequireDefault(_dummy_data);
 exports['default'] = _backbone2['default'].Router.extend({
 
   routes: {
-    '': 'home',
-    'loginPage': 'loginPage',
+    '': 'loginPage',
     'login': 'login',
     'logout': 'logout',
+
     'registerPage': 'registerPage',
     'register': 'register',
-    'deck': 'deck',
+
+    'userPage': 'userPage',
+
+    'deckDetail': 'deckDetail',
     'addCard': 'addCard'
+
   },
 
   start: function start() {
@@ -228,7 +232,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }), document.querySelector('.app'));
   },
 
-  deck: function deck() {
+  deckDetail: function deckDetail() {
     var _this5 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
