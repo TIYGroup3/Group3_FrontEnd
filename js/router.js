@@ -19,7 +19,8 @@ export default Backbone.Router.extend({
     'logout'   : 'logout',
     'registerPage' : 'registerPage',
     'register' : 'register',
-    'deck'     : 'deck'
+    'deck'     : 'deck',
+    'addCard'  : 'addCard'
   },
 
   start() {
@@ -38,10 +39,10 @@ export default Backbone.Router.extend({
       url: `https://guarded-ridge-7410.herokuapp.com/users/register`,
       method: 'POST',
       data: {
-        username: 'jonnywarren',
-        fullname: 'jonny warren',
-        email: 'jonnywarren06@gmail.com',
-        password: 'jonnywarren'
+        username: $('#username').val(),
+        fullname: $('#fullname').val(),
+        email: $('#email').val(),
+        password: $('#password').val(),
       }
     });
     $('.app').html('loading...');
@@ -64,8 +65,8 @@ export default Backbone.Router.extend({
       url: `https://guarded-ridge-7410.herokuapp.com/users/login`,
       method: 'POST',
       data: {
-        username: 'jonnywarren',
-        password: 'jonnywarren'
+        username: $('#username').val(),
+        password: $('#password').val(),
       }
     });
     $('.app').html('loading...');
@@ -77,11 +78,35 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('');
+      this.redirect('loginPage');
     }).fail(() => {
       $('.app').html('Oops..');
     });
   },
+
+  // addCard() {
+  //   let request = $.ajax({
+  //     url: `https://guarded-ridge-7410.herokuapp.com/users/login`,
+  //     method: 'POST',
+  //     data: {
+  //       username: 'jonnywarren',
+  //       password: 'jonnywarren'
+  //     }
+  //   });
+  //   $('.app').html('loading...');
+  //   request.then((data) => {
+  //     console.log('data:', data);
+  //     Cookies.set('user', data);
+  //     $.ajaxSetup({
+  //       headers: {
+  //         auth_token: data.access_token
+  //       }
+  //     });
+  //     this.redirect('');
+  //   }).fail(() => {
+  //     $('.app').html('Oops..');
+  //   });
+  // },
 
   logout() {
     Cookies.remove('user');
@@ -118,7 +143,9 @@ export default Backbone.Router.extend({
 
   deck() {
     ReactDom.render(
-      <Table people={Data}/>,
+      <Table 
+      people={Data}
+      onSubmitClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
     );
   }

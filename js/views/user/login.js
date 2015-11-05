@@ -5,8 +5,7 @@ export default React.createClass({
   getStatus() {
     let user = this.props.user;
     if (user) {
-      let name = user.fullname;
-      let mesg = `Welcome ${name}`;
+      let mesg = `Welcome ` + user;
       return (
         <span>{mesg}</span>
       );
@@ -40,8 +39,8 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <label className="input">Username: <input type="text" className="name"/></label>
-        <label className="input">Password: <input type="text" className="password"/></label>
+        <label className="input">Username: <input type="text" id="username"/></label>
+        <label className="input">Password: <input type="text" id="password"/></label>
         <div>{this.getStatus()}</div>
         {this.loginButton()}
       </div>
