@@ -21,7 +21,6 @@ export default Backbone.Router.extend({
 
   routes: {
     ''         : 'home',
-    'header' : 'header',
 
     'loginPage': 'loginPage',
     'login'    : 'login',
@@ -250,14 +249,6 @@ export default Backbone.Router.extend({
     let titleThing = Cookies.get('user');
     let ttObj = JSON.parse(titleThing);
     console.dir(ttObj.deck.title);
-
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-      />,
-      document.querySelector('.header')
-    );
 
     ReactDom.render(
       <Table 
