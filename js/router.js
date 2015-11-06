@@ -104,7 +104,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          'Access-Key': data.user.access_key
         }
       });
       this.redirect('userPage');
@@ -120,9 +120,6 @@ export default Backbone.Router.extend({
       method: 'POST',
       data: {
         title: $('#deck').val(),
-      },
-      headers: {
-        'Access-Key': JSON.parse(Cookies.get('user')).user.access_key
       }
     });
     $('.app').html('loading...');
@@ -147,9 +144,6 @@ export default Backbone.Router.extend({
       method: 'GET',
       data: {
         owner: 'mine',
-      },
-      headers: {
-        'Access-Key': JSON.parse(Cookies.get('user')).user.access_key
       }
     });
     $('.app').html('loading...');
@@ -162,6 +156,38 @@ export default Backbone.Router.extend({
         }
       });
       this.redirect('userPage');
+    }).fail(() => {
+      $('.app').html('Oops..');
+    });
+  },
+
+
+  addCard() {
+    // console.log(JSON.parse(Cookies.get('user')));
+    let titleThing = Cookies.get('user');
+    let ttObj = JSON.parse(titleThing);
+
+    // console.log('cookie', Cookies.getJSON('user'));
+    console.log(JSON.parse(Cookies.get('user')));
+
+    let request = $.ajax({
+      url: `https://guarded-ridge-7410.herokuapp.com/decks/:id/cards`,
+      method: 'POST',
+      data: {
+        front: 'fronttest',
+        back: 'backtest',
+      }
+    });
+    $('.app').html('loading...');
+    request.then((data) => {
+      console.log('data:', data);
+      Cookies.set('user', data);
+      $.ajaxSetup({
+        headers: {
+          'Access-Key': data.user.access_key
+        }
+      });
+      this.redirect('deckDetail/:id');
     }).fail(() => {
       $('.app').html('Oops..');
     });
@@ -248,7 +274,7 @@ export default Backbone.Router.extend({
   deckDetail(id) {
     let titleThing = Cookies.get('user');
     let ttObj = JSON.parse(titleThing);
-    console.dir(ttObj.deck.title);
+    // console.dir(ttObj.deck.title);
 
     ReactDom.render(
       <Table 
