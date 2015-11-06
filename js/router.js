@@ -221,9 +221,14 @@ export default Backbone.Router.extend({
   // },
 
   deckDetail(id) {
+    let titleThing = Cookies.get('user');
+    let ttObj = JSON.parse(titleThing);
+    console.dir(ttObj.deck.title);
+
     ReactDom.render(
       <Table 
       people={Data}
+      title={ttObj.deck.title}
       onSubmitClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
     );
