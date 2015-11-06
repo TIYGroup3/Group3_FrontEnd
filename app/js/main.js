@@ -263,7 +263,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          'Access-Key': data.user.access_key
         }
       });
       _this2.redirect('userPage');
@@ -281,9 +281,6 @@ exports['default'] = _backbone2['default'].Router.extend({
       method: 'POST',
       data: {
         title: (0, _jquery2['default'])('#deck').val()
-      },
-      headers: {
-        'Access-Key': JSON.parse(_jsCookie2['default'].get('user')).user.access_key
       }
     });
     (0, _jquery2['default'])('.app').html('loading...');
@@ -310,9 +307,6 @@ exports['default'] = _backbone2['default'].Router.extend({
       method: 'GET',
       data: {
         owner: 'mine'
-      },
-      headers: {
-        'Access-Key': JSON.parse(_jsCookie2['default'].get('user')).user.access_key
       }
     });
     (0, _jquery2['default'])('.app').html('loading...');
@@ -330,6 +324,39 @@ exports['default'] = _backbone2['default'].Router.extend({
     });
   },
 
+  addCard: function addCard() {
+    var _this5 = this;
+
+    // console.log(JSON.parse(Cookies.get('user')));
+    var titleThing = _jsCookie2['default'].get('user');
+    var ttObj = JSON.parse(titleThing);
+
+    // console.log('cookie', Cookies.getJSON('user'));
+    console.log(JSON.parse(_jsCookie2['default'].get('user')));
+
+    var request = _jquery2['default'].ajax({
+      url: 'https://guarded-ridge-7410.herokuapp.com/decks/:id/cards',
+      method: 'POST',
+      data: {
+        front: 'fronttest',
+        back: 'backtest'
+      }
+    });
+    (0, _jquery2['default'])('.app').html('loading...');
+    request.then(function (data) {
+      console.log('data:', data);
+      _jsCookie2['default'].set('user', data);
+      _jquery2['default'].ajaxSetup({
+        headers: {
+          'Access-Key': data.user.access_key
+        }
+      });
+      _this5.redirect('deckDetail/:id');
+    }).fail(function () {
+      (0, _jquery2['default'])('.app').html('Oops..');
+    });
+  },
+
   logout: function logout() {
     _jsCookie2['default'].remove('user');
     _jquery2['default'].ajaxSetup({
@@ -341,28 +368,28 @@ exports['default'] = _backbone2['default'].Router.extend({
   },
 
   loginPage: function loginPage() {
-    var _this5 = this;
+    var _this6 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserLogin2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
       onLoginClick: function () {
-        return _this5.navigate('login', { trigger: true });
+        return _this6.navigate('login', { trigger: true });
       },
       onLogoutClick: function () {
-        return _this5.navigate('logout', { trigger: true });
+        return _this6.navigate('logout', { trigger: true });
       },
       onRegisterPageClick: function () {
-        return _this5.navigate('registerPage', { trigger: true });
+        return _this6.navigate('registerPage', { trigger: true });
       } }), document.querySelector('.app'));
   },
 
   registerPage: function registerPage() {
-    var _this6 = this;
+    var _this7 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserRegister2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
       onRegisterClick: function () {
-        return _this6.navigate('register', { trigger: true });
+        return _this7.navigate('register', { trigger: true });
       } }), document.querySelector('.app'));
   },
 
@@ -371,11 +398,11 @@ exports['default'] = _backbone2['default'].Router.extend({
   },
 
   userPage: function userPage() {
-    var _this7 = this;
+    var _this8 = this;
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserUser_page2['default'], {
       onAddDeckClick: function () {
-        return _this7.navigate('addDeck', { trigger: true });
+        return _this8.navigate('addDeck', { trigger: true });
       } }), document.querySelector('.app'));
   },
 
@@ -392,17 +419,17 @@ exports['default'] = _backbone2['default'].Router.extend({
   // },
 
   deckDetail: function deckDetail(id) {
-    var _this8 = this;
+    var _this9 = this;
 
     var titleThing = _jsCookie2['default'].get('user');
     var ttObj = JSON.parse(titleThing);
-    console.dir(ttObj.deck.title);
+    // console.dir(ttObj.deck.title);
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
       people: _dummy_data2['default'],
       title: ttObj.deck.title,
       onSubmitClick: function () {
-        return _this8.navigate('addCard', { trigger: true });
+        return _this9.navigate('addCard', { trigger: true });
       } }), document.querySelector('.app'));
   }
 
@@ -543,14 +570,14 @@ exports["default"] = _react2["default"].createClass({
         { className: "addCardTA" },
         "Front: ",
         _react2["default"].createElement("br", null),
-        _react2["default"].createElement("textarea", { type: "text", className: "front" })
+        _react2["default"].createElement("textarea", { type: "text", id: "cardFront", className: "front" })
       ),
       _react2["default"].createElement(
         "label",
         { className: "addCardTA" },
         "Back: ",
         _react2["default"].createElement("br", null),
-        _react2["default"].createElement("textarea", { type: "text", className: "back" })
+        _react2["default"].createElement("textarea", { type: "text", id: "cardBack", className: "back" })
       ),
       _react2["default"].createElement("br", null),
       this.submitCard()
