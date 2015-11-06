@@ -280,7 +280,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks',
       method: 'POST',
       data: {
-        title: 'deck2'
+        title: (0, _jquery2['default'])('#deck').val()
       },
       headers: {
         'Access-Key': JSON.parse(_jsCookie2['default'].get('user')).user.access_key
@@ -304,11 +304,15 @@ exports['default'] = _backbone2['default'].Router.extend({
   getDeck: function getDeck() {
     var _this4 = this;
 
+    console.log(JSON.parse(_jsCookie2['default'].get('user')).user.access_key);
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks',
       method: 'GET',
       data: {
-        owner: (0, _jquery2['default'])('owner').val()
+        owner: 'mine'
+      },
+      headers: {
+        'Access-Key': JSON.parse(_jsCookie2['default'].get('user')).user.access_key
       }
     });
     (0, _jquery2['default'])('.app').html('loading...');
@@ -369,17 +373,23 @@ exports['default'] = _backbone2['default'].Router.extend({
   userPage: function userPage() {
     var _this7 = this;
 
-    this.collection.fetch().then(function () {
-      _reactDom2['default'].render(_react2['default'].createElement(_viewsUserUser_page2['default'], {
-        onDeckSelect: function (id) {
-          return _this7.navigate('deckDetail/' + id, { trigger: true });
-        },
-        onAddDeckClick: function () {
-          return _this7.navigate('addDeck', { trigger: true });
-        },
-        data: _this7.collection.toJSON() }), document.querySelector('.app'));
-    });
+    _reactDom2['default'].render(_react2['default'].createElement(_viewsUserUser_page2['default'], {
+      onAddDeckClick: function () {
+        return _this7.navigate('addDeck', { trigger: true });
+      } }), document.querySelector('.app'));
   },
+
+  // userPage() {
+  //   this.collection.fetch().then(() => {
+  //     ReactDom.render(
+  //       <UserPage
+  //       onDeckSelect={id => this.navigate(`deckDetail/${id}`, {trigger: true})}
+  //       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}
+  //       data={this.collection.toJSON()}/>,
+  //       document.querySelector('.app')
+  //     );
+  //   });
+  // },
 
   deckDetail: function deckDetail(id) {
     var _this8 = this;
@@ -847,29 +857,20 @@ var _react2 = _interopRequireDefault(_react);
 exports["default"] = _react2["default"].createClass({
   displayName: "user_page",
 
-  processDeck: function processDeck(item) {
-
+  getDeck: function getDeck(deck) {
     var onDeckSelect = this.props.onDeckSelect;
-
     return _react2["default"].createElement(
       "div",
-      { className: "deckSelect", onClick: function () {
-          return onDeckSelect(item.id);
-        } },
+      { className: "deckSelect" },
       _react2["default"].createElement(
         "p",
         null,
-        item.title
+        "DECK NAME HERE"
       )
     );
   },
 
-  getDeck: function getDeck(deck) {
-    return deck.map(this.processDeck);
-  },
-
-  addCardButton: function addCardButton() {
-
+  addDeckButton: function addDeckButton() {
     return _react2["default"].createElement(
       "button",
       { id: "addDeckButton", onClick: this.props.onAddDeckClick },
@@ -893,7 +894,7 @@ exports["default"] = _react2["default"].createClass({
           "New Deck Title: ",
           _react2["default"].createElement("input", { type: "text", id: "deck" })
         ),
-        this.addCardButton()
+        this.addDeckButton()
       ),
       _react2["default"].createElement(
         "div",
@@ -904,6 +905,53 @@ exports["default"] = _react2["default"].createClass({
   }
 
 });
+
+// import React from 'react';
+
+// export default React.createClass({
+
+//   processDeck(item) {
+
+//     let onDeckSelect = this.props.onDeckSelect;
+
+//     return (
+//       <div className="deckSelect" onClick={() => onDeckSelect(item.id)}>
+//         <p>{item.title}</p>
+//       </div>
+//     );
+//   },
+
+//   getDeck(deck) {
+//     return deck.map(this.processDeck);
+//   },
+
+//   addCardButton() {
+
+//     return (
+//       <button id="addDeckButton" onClick={this.props.onAddDeckClick}>
+//         Add Deck
+//       </button>
+//     );
+//   },
+
+//   render() {
+
+//     let deck = this.props.deck;
+
+//     return (
+//       <div>
+//         <div className="addDeck">
+//           <label className="input">New Deck Title: <input type="text" id="deck"/></label>
+//           {this.addCardButton()}
+//         </div>
+//         <div className="deck-container">
+//           {this.getDeck(deck)}
+//         </div>
+//       </div>
+//     );
+//   }
+
+// });
 module.exports = exports["default"];
 
 },{"react":177}],16:[function(require,module,exports){
