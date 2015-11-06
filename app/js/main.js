@@ -394,8 +394,13 @@ exports['default'] = _backbone2['default'].Router.extend({
   deckDetail: function deckDetail(id) {
     var _this8 = this;
 
+    var titleThing = _jsCookie2['default'].get('user');
+    var ttObj = JSON.parse(titleThing);
+    console.dir(ttObj.deck.title);
+
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
       people: _dummy_data2['default'],
+      title: ttObj.deck.title,
       onSubmitClick: function () {
         return _this8.navigate('addCard', { trigger: true });
       } }), document.querySelector('.app'));
