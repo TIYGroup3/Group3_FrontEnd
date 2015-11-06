@@ -113,11 +113,15 @@ export default Backbone.Router.extend({
   },
 
   addDeck() {
+    console.log(JSON.parse(Cookies.get('user')).user.access_key);
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
       method: 'POST',
       data: {
-        title: 'test deck',
+        title: 'deck2',
+      },
+      headers: {
+        'Access-Key': JSON.parse(Cookies.get('user')).user.access_key
       }
     });
     $('.app').html('loading...');
@@ -126,7 +130,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.Access-Key
+          auth_token: data.access_token
         }
       });
       this.redirect('deckDetail/:id');
