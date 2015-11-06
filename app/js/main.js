@@ -380,7 +380,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserHeaderJs2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
       onLogoutClick: function () {
-        return _this5.navigate('logout', { trigger: true });
+        return _this6.navigate('logout', { trigger: true });
       }
     }), document.querySelector('.header'));
 
@@ -403,7 +403,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserHeaderJs2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
       onLogoutClick: function () {
-        return _this6.navigate('logout', { trigger: true });
+        return _this7.navigate('logout', { trigger: true });
       }
     }), document.querySelector('.header'));
 
@@ -424,7 +424,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserHeaderJs2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
       onLogoutClick: function () {
-        return _this7.navigate('logout', { trigger: true });
+        return _this8.navigate('logout', { trigger: true });
       }
     }), document.querySelector('.header'));
 
@@ -452,14 +452,6 @@ exports['default'] = _backbone2['default'].Router.extend({
     var titleThing = _jsCookie2['default'].get('user');
     var ttObj = JSON.parse(titleThing);
     // console.dir(ttObj.deck.title);
-
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //   />,
-    //   document.querySelector('.header')
-    // );
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
       people: _dummy_data2['default'],
