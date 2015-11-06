@@ -47,7 +47,7 @@ export default React.createClass({
       <div className="login">
         <h2>Flash Bang</h2>
         <label className="input">Username: <input type="text" id="username"/></label>
-        <label className="input">Password: <input type="text" id="password"/></label>
+        <label className="input">Password: <input type="password" id="password"/></label>
         <div>{this.getStatus()}</div>
         <div>{this.loginButton()}</div>
       </div>

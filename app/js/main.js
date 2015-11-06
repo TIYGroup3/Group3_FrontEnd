@@ -650,6 +650,11 @@ exports['default'] = _react2['default'].createClass({
       'div',
       { className: 'deckTable' },
       _react2['default'].createElement(
+        'h2',
+        { className: 'deckTitle' },
+        this.props.title
+      ),
+      _react2['default'].createElement(
         'div',
         { className: 'newCard' },
         _react2['default'].createElement(
@@ -754,7 +759,7 @@ exports["default"] = _react2["default"].createClass({
         "label",
         { className: "input" },
         "Password: ",
-        _react2["default"].createElement("input", { type: "text", id: "password" })
+        _react2["default"].createElement("input", { type: "password", id: "password" })
       ),
       _react2["default"].createElement(
         "div",
@@ -827,7 +832,7 @@ exports["default"] = _react2["default"].createClass({
         "label",
         { className: "input" },
         "Password: ",
-        _react2["default"].createElement("input", { type: "text", id: "password" })
+        _react2["default"].createElement("input", { type: "password", id: "password" })
       ),
       this.registerButton()
     );
