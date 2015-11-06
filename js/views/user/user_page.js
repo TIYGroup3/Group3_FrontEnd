@@ -2,18 +2,25 @@ import React from 'react';
 
 export default React.createClass({
 
-  getDeck(deck) {
+  processDeck(item) {
+
     let onDeckSelect = this.props.onDeckSelect;
+
     return (
-      <div className="deckSelect">
-        <p>DECK NAME HERE</p>
+      <div className="deckSelect" onClick={() => onDeckSelect(item.id)}>
+        <p>{item.title}</p>
       </div>
     );
   },
 
+  getDeck(deck) {
+    return deck.map(this.processDeck);
+  },
+
   addCardButton() {
+
     return (
-      <button id="addCardButton" onClick={this.props.onAddCardClick}>
+      <button id="addDeckButton" onClick={this.props.onAddDeckClick}>
         Add Deck
       </button>
     );
