@@ -288,7 +288,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          auth_token: data.Access - Key
         }
       });
       _this3.redirect('deckDetail/:id');
@@ -358,8 +358,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }), document.querySelector('.app'));
   },
 
-  initialize: function initialize(appElement) {
-    this.$el = appElement;
+  initialize: function initialize() {
     this.collection = new _resources.DeckCollection();
   },
 

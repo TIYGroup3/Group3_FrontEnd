@@ -126,7 +126,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          auth_token: data.Access-Key
         }
       });
       this.redirect('deckDetail/:id');
@@ -188,8 +188,7 @@ export default Backbone.Router.extend({
     );
   },
 
-  initialize(appElement) {
-    this.$el = appElement;
+  initialize() {
     this.collection = new DeckCollection();
   },
 
