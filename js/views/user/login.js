@@ -4,8 +4,9 @@ export default React.createClass({
 
   getStatus() {
     let user = this.props.user;
+    console.log(user);
     if (user) {
-      let mesg = `Welcome ` + user;
+      let mesg = `Welcome ` + user.user.username;
       return (
         <span>{mesg}</span>
       );
