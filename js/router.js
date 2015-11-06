@@ -80,7 +80,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          'Access-Key': data.user.access_key
         }
       });
       this.redirect('userPage');
