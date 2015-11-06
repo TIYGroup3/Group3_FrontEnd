@@ -351,6 +351,9 @@ exports['default'] = _backbone2['default'].Router.extend({
       user: _jsCookie2['default'].getJSON('user'),
       onLogoutClick: function () {
         return _this5.navigate('logout', { trigger: true });
+      },
+      onUserClick: function () {
+        return _this5.navigate('userPage', { trigger: true });
       }
     }), document.querySelector('.header'));
 
@@ -374,6 +377,9 @@ exports['default'] = _backbone2['default'].Router.extend({
       user: _jsCookie2['default'].getJSON('user'),
       onLogoutClick: function () {
         return _this6.navigate('logout', { trigger: true });
+      },
+      onUserClick: function () {
+        return _this6.navigate('userPage', { trigger: true });
       }
     }), document.querySelector('.header'));
 
@@ -395,6 +401,9 @@ exports['default'] = _backbone2['default'].Router.extend({
       user: _jsCookie2['default'].getJSON('user'),
       onLogoutClick: function () {
         return _this7.navigate('logout', { trigger: true });
+      },
+      onUserClick: function () {
+        return _this7.navigate('userPage', { trigger: true });
       }
     }), document.querySelector('.header'));
 
@@ -422,14 +431,6 @@ exports['default'] = _backbone2['default'].Router.extend({
     var titleThing = _jsCookie2['default'].get('user');
     var ttObj = JSON.parse(titleThing);
     console.dir(ttObj.deck.title);
-
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //   />,
-    //   document.querySelector('.header')
-    // );
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
       people: _dummy_data2['default'],
@@ -741,11 +742,16 @@ exports['default'] = _react2['default'].createClass({
   logoutButton: function logoutButton() {
     var user = this.props.user;
     if (this.isLoggedIn()) {
-      var mesg = 'Not ' + user.user.username + '?  ';
       return _react2['default'].createElement(
         'span',
         null,
-        mesg,
+        'Not ',
+        _react2['default'].createElement(
+          'span',
+          { className: 'nameClick', onClick: this.props.onUserClick },
+          user.user.username
+        ),
+        '?  ',
         _react2['default'].createElement(
           'button',
           { onClick: this.props.onLogoutClick },

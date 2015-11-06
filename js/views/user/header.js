@@ -8,12 +8,13 @@ export default React.createClass({
     return !!user;
   },
 
+
+
   logoutButton() {
     let user = this.props.user;
     if(this.isLoggedIn()) {
-      let mesg = `Not ` + user.user.username + `?  `;
       return (
-        <span>{mesg}<button onClick={this.props.onLogoutClick}>
+        <span>Not <span className="nameClick" onClick={this.props.onUserClick}>{user.user.username}</span>?  <button onClick={this.props.onLogoutClick}>
           Log out
         </button></span>
       );

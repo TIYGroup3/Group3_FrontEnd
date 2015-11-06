@@ -182,6 +182,7 @@ export default Backbone.Router.extend({
       <Header
         user={Cookies.getJSON('user')}
         onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}
       />,
       document.querySelector('.header')
     );
@@ -201,6 +202,7 @@ export default Backbone.Router.extend({
       <Header
         user={Cookies.getJSON('user')}
         onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}
       />,
       document.querySelector('.header')
     );
@@ -222,6 +224,7 @@ export default Backbone.Router.extend({
       <Header
         user={Cookies.getJSON('user')}
         onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}
       />,
       document.querySelector('.header')
     );
