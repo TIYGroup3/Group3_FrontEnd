@@ -11,21 +11,27 @@ export default React.createClass({
     );
   },
 
+  addCardButton() {
+    return (
+      <button id="addCardButton" onClick={this.props.onAddCardClick}>
+        Add Deck
+      </button>
+    );
+  },
+
   render() {
 
     let deck = this.props.deck;
 
     return (
-      <div className="deck-container">
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
-        {this.getDeck(deck)}
+      <div>
+        <div className="addDeck">
+          <label className="input">New Deck Title: <input type="text" id="deck"/></label>
+          {this.addCardButton()}
+        </div>
+        <div className="deck-container">
+          {this.getDeck(deck)}
+        </div>
       </div>
     );
   }
