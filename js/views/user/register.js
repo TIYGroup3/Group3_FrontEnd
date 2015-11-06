@@ -13,7 +13,7 @@ export default React.createClass({
   render() {
     return (
       <div className="register">
-        <h2>Create a new account</h2>
+        <div>Create a new account</div>
         <label className="input">Username: <input type="text" id="username"/></label>
         <label className="input">Full Name: <input type="text" id="fullname"/></label>
         <label className="input">Email address: <input type="text" id="email"/></label>

@@ -13,6 +13,7 @@ import Register from './views/user/register';
 import LoginPage from './views/user/login';
 import Table from './views/deck/table';
 import UserPage from './views/user/user_page';
+import Header from './views/user/header.js';
 
 import Data from './dummy_data';
 
@@ -20,6 +21,7 @@ export default Backbone.Router.extend({
 
   routes: {
     ''         : 'home',
+    'header' : 'header',
 
     'loginPage': 'loginPage',
     'login'    : 'login',
@@ -178,6 +180,14 @@ export default Backbone.Router.extend({
 
   loginPage() {
     ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+      />,
+      document.querySelector('.header')
+    );
+
+    ReactDom.render( 
       <LoginPage
         user={Cookies.getJSON('user')}
         onLoginClick={() => this.navigate('login', {trigger: true})}
@@ -188,6 +198,14 @@ export default Backbone.Router.extend({
   },
 
   registerPage() {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+      />,
+      document.querySelector('.header')
+    );
+
     ReactDom.render(
       <Register 
         user={Cookies.getJSON('user')}
@@ -201,6 +219,14 @@ export default Backbone.Router.extend({
   },
 
   userPage() {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+      />,
+      document.querySelector('.header')
+    );
+
     ReactDom.render(
       <UserPage
       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}/>,
@@ -224,6 +250,14 @@ export default Backbone.Router.extend({
     let titleThing = Cookies.get('user');
     let ttObj = JSON.parse(titleThing);
     console.dir(ttObj.deck.title);
+
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+      />,
+      document.querySelector('.header')
+    );
 
     ReactDom.render(
       <Table 

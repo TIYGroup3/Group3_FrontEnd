@@ -25,9 +25,6 @@ export default React.createClass({
           <Grid data={this.props.people}/>
         </table>
       </div>
-
-
     );
   }
-
 }); 
