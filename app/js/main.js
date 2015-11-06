@@ -244,7 +244,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          'Access-Key': data.user.access_key
         }
       });
       _this.redirect('userPage');
