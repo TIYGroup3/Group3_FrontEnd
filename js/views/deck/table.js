@@ -15,6 +15,7 @@ export default React.createClass({
     return (
 
       <div className="deckTable">
+        <h2 className="deckTitle">{this.props.title}</h2>
         <div className="newCard">
           <p>Add a Card</p>
           <Input/>

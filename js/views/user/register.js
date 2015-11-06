@@ -17,7 +17,7 @@ export default React.createClass({
         <label className="input">Username: <input type="text" id="username"/></label>
         <label className="input">Full Name: <input type="text" id="fullname"/></label>
         <label className="input">Email address: <input type="text" id="email"/></label>
-        <label className="input">Password: <input type="text" id="password"/></label>
+        <label className="input">Password: <input type="password" id="password"/></label>
         {this.registerButton()}
       </div>
     );
