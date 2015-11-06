@@ -45,7 +45,6 @@ export default React.createClass({
   render() {
     return (
       <div className="login">
-        <h2>Flash Bang</h2>
         <label className="input">Username: <input type="text" id="username"/></label>
         <label className="input">Password: <input type="password" id="password"/></label>
         <div>{this.getStatus()}</div>

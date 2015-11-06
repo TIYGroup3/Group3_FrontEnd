@@ -2027,6 +2027,9 @@ html {
 body {
   background: #e2ebf3; }
 
+.header {
+  margin-bottom: 5px; }
+
 table {
   margin: 25px auto; }
   table td, table th {
@@ -2044,6 +2047,7 @@ table {
   text-align: center; }
 
 .app {
+  padding-top: 5px;
   border: 1px solid grey; }
 
 .deck-container {
@@ -2080,6 +2084,9 @@ table {
 
 .login button {
   margin: 10px 5px; }
+
+.register div {
+  margin: 10px 0; }
 
 .register .input {
   display: block;
