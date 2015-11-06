@@ -8,6 +8,11 @@ body {
 
 .header {
   margin-bottom: 5px;
+
+  .nameClick {
+    cursor: pointer;
+    color: blue;
+  }
 }
 
 table {

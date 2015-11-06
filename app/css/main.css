@@ -2029,6 +2029,9 @@ body {
 
 .header {
   margin-bottom: 5px; }
+  .header .nameClick {
+    cursor: pointer;
+    color: blue; }
 
 table {
   margin: 25px auto; }
