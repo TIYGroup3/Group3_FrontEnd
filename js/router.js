@@ -42,6 +42,11 @@ export default Backbone.Router.extend({
 
   },
 
+  initialize(appElement) {
+    this.el = appElement;
+    this.collection = new DeckCollection();
+  },
+
   checkUser() {
     if (Cookies.get('user')) {
       this.redirect('userPage');
@@ -185,7 +190,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          'Access-Key': data.user.access_key
+          auth_token: data.access_token
         }
       });
       this.redirect('deckDetail/:id');
