@@ -257,8 +257,6 @@ export default Backbone.Router.extend({
     //   document.querySelector('.header')
     // );
 
-
-    console.log(JSON.parse(Cookies.get('user')).user.access_key);
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
       method: 'GET',
@@ -279,6 +277,7 @@ export default Backbone.Router.extend({
         <UserPage
           data={data.decks}
           user={Cookies.getJSON('user')}
+          onDeckSelect={() => this.navigate('deckDetail/:id', {trigger: true})}
           onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
         document.querySelector('.app')
       );
@@ -304,15 +303,6 @@ export default Backbone.Router.extend({
   },
 
   deckDetail(id) {
-
-    let getDeckId = Cookies.get('user');
-    let DeckId = JSON.parse(getDeckId);
-    console.dir(DeckId.deck.id);
-
-    let titleThing = Cookies.get('user');
-    let ttObj = JSON.parse(titleThing);
-    console.dir(ttObj.deck.title);
-
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -323,10 +313,8 @@ export default Backbone.Router.extend({
 
     ReactDom.render(
       <Table
-        people={Data}
-        title={ttObj.deck.title}
-        user={Cookies.getJSON('user')}
-        onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
+      user={Cookies.getJSON('user')}
+      onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
     );
   }
