@@ -284,5 +284,5 @@ export default Backbone.Router.extend({
       document.querySelector('.app')
     );
   }
-
+  
 });
