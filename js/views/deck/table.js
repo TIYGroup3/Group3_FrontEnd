@@ -4,12 +4,6 @@ import React from 'react';
 
 export default React.createClass({
 
-  // getHeadingData() {
-  //   let firstPerson = this.props.people[0];
-  //   let keys = Object.keys(firstPerson);
-  //   return keys.filter(key => key !== "id");
-  // },
-
   submitCard() {
     return (
       <button id="addCardButton" onClick={this.props.onAddCardClick}>
