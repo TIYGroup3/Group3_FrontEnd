@@ -1,15 +1,14 @@
 import React from 'react';
-import Grid from './grid';
-import Column from './column';
+// import Grid from './grid';
 // import Input from './input';
 
 export default React.createClass({
 
-  getHeadingData() {
-    let firstPerson = this.props.people[0];
-    let keys = Object.keys(firstPerson);
-    return keys.filter(key => key !== "id");
-  },
+  // getHeadingData() {
+  //   let firstPerson = this.props.people[0];
+  //   let keys = Object.keys(firstPerson);
+  //   return keys.filter(key => key !== "id");
+  // },
 
   submitCard() {
     return (
@@ -40,8 +39,6 @@ export default React.createClass({
           {this.cardInput()}
         </div>
         <table>
-          <Column headingData={this.getHeadingData()}/>
-          <Grid data={this.props.people}/>
         </table>
       </div>
     );
