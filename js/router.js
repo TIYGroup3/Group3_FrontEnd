@@ -4,10 +4,10 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import $ from 'jquery';
 
-import {
-  DeckModel,
-  DeckCollection
-} from './resources';
+// import {
+//   DeckModel,
+//   DeckCollection
+// } from './resources';
 
 import Register from './views/user/register';
 import LoginPage from './views/user/login';
@@ -42,10 +42,10 @@ export default Backbone.Router.extend({
 
   },
 
-  initialize(appElement) {
-    this.el = appElement;
-    this.collection = new DeckCollection();
-  },
+  // initialize(appElement) {
+  //   this.el = appElement;
+  //   this.collection = new DeckCollection();
+  // },
 
   checkUser() {
     if (Cookies.get('user')) {
@@ -114,7 +114,7 @@ export default Backbone.Router.extend({
           'Access-Key': data.user.access_key
         }
       });
-      this.redirect('userPage');
+      this.redirect('getDeck');
     }).fail(() => {
       $('.app').html('Try again');
     });
@@ -159,7 +159,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          'Access-Key': JSON.parse(Cookies.get('user')).user.access_key
         }
       });
       this.redirect('userPage');
@@ -254,6 +254,17 @@ export default Backbone.Router.extend({
     //   document.querySelector('.header')
     // );
 
+    // this.collection.fetch().then(() => {
+    //   this.render(
+    //     <UserPage
+    //       id={this.collection.id}
+    //       user={Cookies.getJSON('user')}
+    //       decks={Cookies.getJSON('decks')}
+    //       onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
+    //     document.querySelector('.app')
+    //   );
+    // });
+    // OLD CODE:
     ReactDom.render(
       <UserPage
         user={Cookies.getJSON('user')}

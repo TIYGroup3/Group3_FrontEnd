@@ -3,7 +3,7 @@ import Deck from './deck_model';
 
 export default Backbone.Model.extend({
 
-  url: 'https://guarded-ridge-7410.herokuapp.com/decks',
+  url: 'https://guarded-ridge-7410.herokuapp.com',
 
   model: Deck,
 
