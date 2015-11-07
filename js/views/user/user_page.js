@@ -1,12 +1,12 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 
 export default React.createClass({
 
   getDeck(deck) {
-    let onDeckSelect = this.props.onDeckSelect;
     return (
-      <div className="deckSelect">
-        <p>DECK NAME HERE</p>
+      <div className="individualDeck">
+        {deck.title}
       </div>
     );
   },
@@ -29,7 +29,7 @@ export default React.createClass({
           {this.addDeckButton()}
         </div>
         <div className="deck-container">
-          {this.getDeck(deck)}
+          {this.props.data.map(this.getDeck)}
         </div>
       </div>
     );

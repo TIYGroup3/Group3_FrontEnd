@@ -42,6 +42,14 @@ table {
 
 .deck-container {
   @include outer-container(100%);
+
+  .individualDeck {
+    display: inline-block;
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid black;
+  }
 }
 
 .deckSelect {
