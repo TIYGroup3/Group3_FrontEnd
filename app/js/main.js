@@ -163,6 +163,10 @@ var _viewsUserLogin = require('./views/user/login');
 
 var _viewsUserLogin2 = _interopRequireDefault(_viewsUserLogin);
 
+var _viewsDeckAddDeck = require('./views/deck/addDeck');
+
+var _viewsDeckAddDeck2 = _interopRequireDefault(_viewsDeckAddDeck);
+
 var _viewsDeckTable = require('./views/deck/table');
 
 var _viewsDeckTable2 = _interopRequireDefault(_viewsDeckTable);
@@ -193,6 +197,7 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     'userPage': 'userPage',
     'addDeck': 'addDeck',
+    'addDeckPage': 'addDeckPage',
     'getDeck': 'getDeck',
 
     'deckDetail/:id': 'deckDetail',
@@ -282,7 +287,6 @@ exports['default'] = _backbone2['default'].Router.extend({
   addDeck: function addDeck() {
     var _this3 = this;
 
-    console.log(JSON.parse(_jsCookie2['default'].get('user')).user.access_key);
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks',
       method: 'POST',
@@ -290,6 +294,7 @@ exports['default'] = _backbone2['default'].Router.extend({
         title: (0, _jquery2['default'])('#deck').val()
       }
     });
+
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
       console.log('data:', data);
@@ -299,7 +304,7 @@ exports['default'] = _backbone2['default'].Router.extend({
           auth_token: data.access_token
         }
       });
-      _this3.redirect('deckDetail/:id');
+      _this3.redirect('userPage');
     }).fail(function () {
       (0, _jquery2['default'])('.app').html('Oops..');
     });
@@ -345,8 +350,8 @@ exports['default'] = _backbone2['default'].Router.extend({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks/:id/cards',
       method: 'POST',
       data: {
-        front: 'fronttest',
-        back: 'backtest'
+        front: (0, _jquery2['default'])('#cardFront').val(),
+        back: (0, _jquery2['default'])('#cardBack').val()
       }
     });
     (0, _jquery2['default'])('.app').html('loading...');
@@ -377,18 +382,13 @@ exports['default'] = _backbone2['default'].Router.extend({
   loginPage: function loginPage() {
     var _this6 = this;
 
-    _reactDom2['default'].render(_react2['default'].createElement(_viewsUserHeaderJs2['default'], {
-      user: _jsCookie2['default'].getJSON('user'),
-      onLogoutClick: function () {
-
-        return _this5.navigate('logout', { trigger: true });
-      },
-      onUserClick: function () {
-        return _this5.navigate('userPage', { trigger: true });
-
-        return _this6.navigate('logout', { trigger: true });
-      }
-    }), document.querySelector('.header'));
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserLogin2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
@@ -406,19 +406,13 @@ exports['default'] = _backbone2['default'].Router.extend({
   registerPage: function registerPage() {
     var _this7 = this;
 
-    _reactDom2['default'].render(_react2['default'].createElement(_viewsUserHeaderJs2['default'], {
-      user: _jsCookie2['default'].getJSON('user'),
-      onLogoutClick: function () {
-<<<<<<< HEAD
-        return _this6.navigate('logout', { trigger: true });
-      },
-      onUserClick: function () {
-        return _this6.navigate('userPage', { trigger: true });
-=======
-        return _this7.navigate('logout', { trigger: true });
->>>>>>> master
-      }
-    }), document.querySelector('.header'));
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserRegister2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
@@ -427,68 +421,121 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }), document.querySelector('.app'));
   },
 
-  initialize: function initialize() {
-    this.collection = new _resources.DeckCollection();
-  },
-
   userPage: function userPage() {
     var _this8 = this;
 
-    _reactDom2['default'].render(_react2['default'].createElement(_viewsUserHeaderJs2['default'], {
-      user: _jsCookie2['default'].getJSON('user'),
-      onLogoutClick: function () {
-<<<<<<< HEAD
-        return _this7.navigate('logout', { trigger: true });
-      },
-      onUserClick: function () {
-        return _this7.navigate('userPage', { trigger: true });
-=======
-        return _this8.navigate('logout', { trigger: true });
->>>>>>> master
-      }
-    }), document.querySelector('.header'));
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsUserUser_page2['default'], {
+      user: _jsCookie2['default'].getJSON('user'),
       onAddDeckClick: function () {
-        return _this8.navigate('addDeck', { trigger: true });
+        return _this8.navigate('addDeckPage', { trigger: true });
       } }), document.querySelector('.app'));
   },
 
-  // userPage() {
-  //   this.collection.fetch().then(() => {
-  //     ReactDom.render(
-  //       <UserPage
-  //       onDeckSelect={id => this.navigate(`deckDetail/${id}`, {trigger: true})}
-  //       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}
-  //       data={this.collection.toJSON()}/>,
-  //       document.querySelector('.app')
-  //     );
-  //   });
-  // },
+  addDeckPage: function addDeckPage() {
+    var _this9 = this;
+
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
+
+    _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckAddDeck2['default'], {
+      onAddDeckClick: function () {
+        return _this9.navigate('addDeck', { trigger: true });
+      } }), document.querySelector('.app'));
+  },
 
   deckDetail: function deckDetail(id) {
-    var _this9 = this;
+    var _this10 = this;
+
+    var getDeckId = _jsCookie2['default'].get('user');
+    var DeckId = JSON.parse(getDeckId);
+    console.dir(DeckId.deck.id);
 
     var titleThing = _jsCookie2['default'].get('user');
     var ttObj = JSON.parse(titleThing);
-<<<<<<< HEAD
     console.dir(ttObj.deck.title);
-=======
-    // console.dir(ttObj.deck.title);
->>>>>>> master
+
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
       people: _dummy_data2['default'],
       title: ttObj.deck.title,
-      onSubmitClick: function () {
-        return _this9.navigate('addCard', { trigger: true });
+      user: _jsCookie2['default'].getJSON('user'),
+      onAddCardClick: function () {
+        return _this10.navigate('addCard', { trigger: true });
       } }), document.querySelector('.app'));
   }
 
 });
 module.exports = exports['default'];
 
-},{"./dummy_data":1,"./resources":5,"./views/deck/table":12,"./views/user/header.js":13,"./views/user/login":14,"./views/user/register":15,"./views/user/user_page":16,"backbone":17,"jquery":19,"js-cookie":20,"react":178,"react-dom":22}],7:[function(require,module,exports){
+},{"./dummy_data":1,"./resources":5,"./views/deck/addDeck":7,"./views/deck/table":12,"./views/user/header.js":13,"./views/user/login":14,"./views/user/register":15,"./views/user/user_page":16,"backbone":17,"jquery":19,"js-cookie":20,"react":178,"react-dom":22}],7:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+exports["default"] = _react2["default"].createClass({
+  displayName: "addDeck",
+
+  addDeckButton: function addDeckButton() {
+    return _react2["default"].createElement(
+      "button",
+      { id: "addDeckButton", onClick: this.props.onAddDeckClick },
+      "Add Deck"
+    );
+  },
+
+  render: function render() {
+
+    var deck = this.props.deck;
+
+    return _react2["default"].createElement(
+      "div",
+      null,
+      _react2["default"].createElement(
+        "div",
+        { className: "addDeck" },
+        _react2["default"].createElement(
+          "label",
+          { className: "input" },
+          "New Deck Title: ",
+          _react2["default"].createElement("input", { type: "text", id: "deck" })
+        ),
+        this.addDeckButton()
+      )
+    );
+  }
+
+});
+module.exports = exports["default"];
+
+},{"react":178}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -515,7 +562,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"react":178}],8:[function(require,module,exports){
+},{"react":178}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -554,7 +601,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"react":178}],9:[function(require,module,exports){
+},{"react":178}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -589,57 +636,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"./row":11,"react":178}],10:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-exports["default"] = _react2["default"].createClass({
-  displayName: "input",
-
-  submitCard: function submitCard() {
-    return _react2["default"].createElement(
-      "button",
-      { onClick: this.props.onSubmitClick },
-      "Add Card"
-    );
-  },
-
-  render: function render() {
-    return _react2["default"].createElement(
-      "div",
-      null,
-      _react2["default"].createElement(
-        "label",
-        { className: "addCardTA" },
-        "Front: ",
-        _react2["default"].createElement("br", null),
-        _react2["default"].createElement("textarea", { type: "text", id: "cardFront", className: "front" })
-      ),
-      _react2["default"].createElement(
-        "label",
-        { className: "addCardTA" },
-        "Back: ",
-        _react2["default"].createElement("br", null),
-        _react2["default"].createElement("textarea", { type: "text", id: "cardBack", className: "back" })
-      ),
-      _react2["default"].createElement("br", null),
-      this.submitCard()
-    );
-  }
-
-});
-module.exports = exports["default"];
-
-},{"react":178}],11:[function(require,module,exports){
+},{"./row":11,"react":178}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -693,7 +690,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"./cell":7,"react":178,"underscore":179}],12:[function(require,module,exports){
+},{"./cell":8,"react":178,"underscore":179}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -714,9 +711,7 @@ var _column = require('./column');
 
 var _column2 = _interopRequireDefault(_column);
 
-var _input = require('./input');
-
-var _input2 = _interopRequireDefault(_input);
+// import Input from './input';
 
 exports['default'] = _react2['default'].createClass({
   displayName: 'table',
@@ -727,6 +722,37 @@ exports['default'] = _react2['default'].createClass({
     return keys.filter(function (key) {
       return key !== "id";
     });
+  },
+
+  submitCard: function submitCard() {
+    return _react2['default'].createElement(
+      'button',
+      { id: 'addCardButton', onClick: this.props.onAddCardClick },
+      'Add Card'
+    );
+  },
+
+  cardInput: function cardInput() {
+    return _react2['default'].createElement(
+      'div',
+      null,
+      _react2['default'].createElement(
+        'label',
+        { className: 'addCardTA' },
+        'Front: ',
+        _react2['default'].createElement('br', null),
+        _react2['default'].createElement('textarea', { type: 'text', id: 'cardFront', className: 'front' })
+      ),
+      _react2['default'].createElement(
+        'label',
+        { className: 'addCardTA' },
+        'Back: ',
+        _react2['default'].createElement('br', null),
+        _react2['default'].createElement('textarea', { type: 'text', id: 'cardBack', className: 'back' })
+      ),
+      _react2['default'].createElement('br', null),
+      this.submitCard()
+    );
   },
 
   render: function render() {
@@ -746,7 +772,7 @@ exports['default'] = _react2['default'].createClass({
           null,
           'Add a Card'
         ),
-        _react2['default'].createElement(_input2['default'], null)
+        this.cardInput()
       ),
       _react2['default'].createElement(
         'table',
@@ -759,7 +785,7 @@ exports['default'] = _react2['default'].createClass({
 });
 module.exports = exports['default'];
 
-},{"./column":8,"./grid":9,"./input":10,"react":178}],13:[function(require,module,exports){
+},{"./column":9,"./grid":10,"react":178}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1018,7 +1044,7 @@ exports["default"] = _react2["default"].createClass({
     return _react2["default"].createElement(
       "button",
       { id: "addDeckButton", onClick: this.props.onAddDeckClick },
-      "Add Deck"
+      "Add New Deck"
     );
   },
 
@@ -1032,12 +1058,6 @@ exports["default"] = _react2["default"].createClass({
       _react2["default"].createElement(
         "div",
         { className: "addDeck" },
-        _react2["default"].createElement(
-          "label",
-          { className: "input" },
-          "New Deck Title: ",
-          _react2["default"].createElement("input", { type: "text", id: "deck" })
-        ),
         this.addDeckButton()
       ),
       _react2["default"].createElement(
@@ -1049,53 +1069,6 @@ exports["default"] = _react2["default"].createClass({
   }
 
 });
-
-// import React from 'react';
-
-// export default React.createClass({
-
-//   processDeck(item) {
-
-//     let onDeckSelect = this.props.onDeckSelect;
-
-//     return (
-//       <div className="deckSelect" onClick={() => onDeckSelect(item.id)}>
-//         <p>{item.title}</p>
-//       </div>
-//     );
-//   },
-
-//   getDeck(deck) {
-//     return deck.map(this.processDeck);
-//   },
-
-//   addCardButton() {
-
-//     return (
-//       <button id="addDeckButton" onClick={this.props.onAddDeckClick}>
-//         Add Deck
-//       </button>
-//     );
-//   },
-
-//   render() {
-
-//     let deck = this.props.deck;
-
-//     return (
-//       <div>
-//         <div className="addDeck">
-//           <label className="input">New Deck Title: <input type="text" id="deck"/></label>
-//           {this.addCardButton()}
-//         </div>
-//         <div className="deck-container">
-//           {this.getDeck(deck)}
-//         </div>
-//       </div>
-//     );
-//   }
-
-// });
 module.exports = exports["default"];
 
 },{"react":178}],17:[function(require,module,exports){

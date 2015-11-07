@@ -2,19 +2,10 @@ import React from 'react';
 
 export default React.createClass({
 
-  getDeck(deck) {
-    let onDeckSelect = this.props.onDeckSelect;
-    return (
-      <div className="deckSelect">
-        <p>DECK NAME HERE</p>
-      </div>
-    );
-  },
-
   addDeckButton() {
     return (
       <button id="addDeckButton" onClick={this.props.onAddDeckClick}>
-        Add New Deck
+        Add Deck
       </button>
     );
   },
@@ -26,10 +17,8 @@ export default React.createClass({
     return (
       <div>
         <div className="addDeck">
+          <label className="input">New Deck Title: <input type="text" id="deck"/></label>
           {this.addDeckButton()}
-        </div>
-        <div className="deck-container">
-          {this.getDeck(deck)}
         </div>
       </div>
     );

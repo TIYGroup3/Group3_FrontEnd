@@ -11,9 +11,10 @@ import {
 
 import Register from './views/user/register';
 import LoginPage from './views/user/login';
+import AddDeckPage from './views/deck/addDeck';
 import Table from './views/deck/table';
 import UserPage from './views/user/user_page';
-import Header from './views/user/header.js';
+// import Header from './views/user/header.js';
 
 import Data from './dummy_data';
 
@@ -31,6 +32,7 @@ export default Backbone.Router.extend({
 
     'userPage' : 'userPage',
     'addDeck' : 'addDeck',
+    'addDeckPage' : 'addDeckPage',
     'getDeck' : 'getDeck',
 
     'deckDetail/:id' : 'deckDetail',
@@ -114,7 +116,6 @@ export default Backbone.Router.extend({
   },
 
   addDeck() {
-    console.log(JSON.parse(Cookies.get('user')).user.access_key);
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
       method: 'POST',
@@ -122,6 +123,7 @@ export default Backbone.Router.extend({
         title: $('#deck').val(),
       }
     });
+
     $('.app').html('loading...');
     request.then((data) => {
       console.log('data:', data);
@@ -131,7 +133,7 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('deckDetail/:id');
+      this.redirect('userPage');
     }).fail(() => {
       $('.app').html('Oops..');
     });
@@ -161,7 +163,6 @@ export default Backbone.Router.extend({
     });
   },
 
-
   addCard() {
     // console.log(JSON.parse(Cookies.get('user')));
     let titleThing = Cookies.get('user');
@@ -174,8 +175,8 @@ export default Backbone.Router.extend({
       url: `https://guarded-ridge-7410.herokuapp.com/decks/:id/cards`,
       method: 'POST',
       data: {
-        front: 'fronttest',
-        back: 'backtest',
+        front: $('#cardFront').val(),
+        back: $('#cardBack').val(),
       }
     });
     $('.app').html('loading...');
@@ -204,14 +205,13 @@ export default Backbone.Router.extend({
   },
 
   loginPage() {
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-        onUserClick={() => this.navigate('userPage', {trigger: true})}
-      />,
-      document.querySelector('.header')
-    );
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render( 
       <LoginPage
@@ -224,14 +224,13 @@ export default Backbone.Router.extend({
   },
 
   registerPage() {
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-        onUserClick={() => this.navigate('userPage', {trigger: true})}
-      />,
-      document.querySelector('.header')
-    );
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render(
       <Register 
@@ -241,51 +240,65 @@ export default Backbone.Router.extend({
     );
   },
 
-  initialize() {
-    this.collection = new DeckCollection();
-  },
-
   userPage() {
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-        onUserClick={() => this.navigate('userPage', {trigger: true})}
-      />,
-      document.querySelector('.header')
-    );
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render(
       <UserPage
+        user={Cookies.getJSON('user')}
+        onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
+      document.querySelector('.app')
+    );
+  },
+
+  addDeckPage() {
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
+
+    ReactDom.render(
+      <AddDeckPage
       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}/>,
       document.querySelector('.app')
     );
   },
 
-  // userPage() {
-  //   this.collection.fetch().then(() => {
-  //     ReactDom.render(
-  //       <UserPage 
-  //       onDeckSelect={id => this.navigate(`deckDetail/${id}`, {trigger: true})}
-  //       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}
-  //       data={this.collection.toJSON()}/>,
-  //       document.querySelector('.app')
-  //     );
-  //   });
-  // },
-
   deckDetail(id) {
+
+    let getDeckId = Cookies.get('user');
+    let DeckId = JSON.parse(getDeckId);
+    console.dir(DeckId.deck.id);
+
     let titleThing = Cookies.get('user');
     let ttObj = JSON.parse(titleThing);
-    // console.dir(ttObj.deck.title);
+    console.dir(ttObj.deck.title);
+
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render(
-      <Table 
-      people={Data}
-      title={ttObj.deck.title}
-      onSubmitClick={() => this.navigate('addCard', {trigger: true})}/>,
+      <Table
+        people={Data}
+        title={ttObj.deck.title}
+        user={Cookies.getJSON('user')}
+        onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
     );
   }
-
+  
 });
