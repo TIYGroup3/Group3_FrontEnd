@@ -131,7 +131,7 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('deckDetail/:id');
+      this.navigate('deckDetail/:id', {trigger: true});
     }).fail(() => {
       $('.app').html('Oops..');
     });
@@ -174,8 +174,8 @@ export default Backbone.Router.extend({
       url: `https://guarded-ridge-7410.herokuapp.com/decks/:id/cards`,
       method: 'POST',
       data: {
-        front: 'fronttest',
-        back: 'backtest',
+        front: $('#cardFront').val(),
+        back: $('#cardBack').val(),
       }
     });
     $('.app').html('loading...');
@@ -254,33 +254,28 @@ export default Backbone.Router.extend({
 
     ReactDom.render(
       <UserPage
+      user={Cookies.getJSON('user')}
       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}/>,
       document.querySelector('.app')
     );
   },
 
-  // userPage() {
-  //   this.collection.fetch().then(() => {
-  //     ReactDom.render(
-  //       <UserPage 
-  //       onDeckSelect={id => this.navigate(`deckDetail/${id}`, {trigger: true})}
-  //       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}
-  //       data={this.collection.toJSON()}/>,
-  //       document.querySelector('.app')
-  //     );
-  //   });
-  // },
-
   deckDetail(id) {
+
+    let getDeckId = Cookies.get('user');
+    let DeckId = JSON.parse(getDeckId);
+    console.dir(DeckId.deck.id);
+
     let titleThing = Cookies.get('user');
     let ttObj = JSON.parse(titleThing);
-    // console.dir(ttObj.deck.title);
+    console.dir(ttObj.deck.title);
 
     ReactDom.render(
-      <Table 
+      <Table
       people={Data}
       title={ttObj.deck.title}
-      onSubmitClick={() => this.navigate('addCard', {trigger: true})}/>,
+      user={Cookies.getJSON('user')}
+      onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
     );
   }

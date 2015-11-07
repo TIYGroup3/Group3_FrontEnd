@@ -4,7 +4,7 @@ export default React.createClass({
 
   submitCard() {
     return (
-      <button onClick={this.props.onSubmitClick}>
+      <button id="addCardButton" onClick={this.props.onAddCardClick}>
         Add Card
       </button>
     );
