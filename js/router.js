@@ -16,7 +16,7 @@ import Table from './views/deck/table';
 import UserPage from './views/user/user_page';
 // import Header from './views/user/header.js';
 
-import Data from './dummy_data';
+import dummyData from './dummy_data';
 
 export default Backbone.Router.extend({
 
@@ -40,6 +40,14 @@ export default Backbone.Router.extend({
 
     'checkUser' : 'checkUser',
 
+  },
+
+  initialize: function(appElement) {
+    this.el = appElement;
+
+    this.decks = new DeckCollection();
+
+    let router = this;
   },
 
   checkUser() {
@@ -249,12 +257,34 @@ export default Backbone.Router.extend({
     //   document.querySelector('.header')
     // );
 
-    ReactDom.render(
-      <UserPage
-        user={Cookies.getJSON('user')}
-        onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
-      document.querySelector('.app')
-    );
+
+    console.log(JSON.parse(Cookies.get('user')).user.access_key);
+    let request = $.ajax({
+      url: `https://guarded-ridge-7410.herokuapp.com/decks`,
+      method: 'GET',
+      data: {
+        owner: 'mine',
+      }
+    });
+    $('.app').html('loading...');
+    request.then((data) => {
+      console.log('decks:', data);
+      Cookies.set('user', data);
+      $.ajaxSetup({
+        headers: {
+          auth_token: data.access_token
+        }
+      });
+      ReactDom.render(
+        <UserPage
+          data={data.decks}
+          user={Cookies.getJSON('user')}
+          onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
+        document.querySelector('.app')
+      );
+    }).fail(() => {
+      $('.app').html('Oops..');
+    });
   },
 
   addDeckPage() {

@@ -2061,6 +2061,12 @@ table {
     clear: both;
     content: "";
     display: table; }
+  .deck-container .individualDeck {
+    display: inline-block;
+    width: 200px;
+    height: 300px;
+    margin: 10px;
+    border: 1px solid black; }
 
 .deckSelect {
   float: left;
