@@ -11,9 +11,10 @@ import {
 
 import Register from './views/user/register';
 import LoginPage from './views/user/login';
+import AddDeckPage from './views/deck/addDeck';
 import Table from './views/deck/table';
 import UserPage from './views/user/user_page';
-import Header from './views/user/header.js';
+// import Header from './views/user/header.js';
 
 import Data from './dummy_data';
 
@@ -31,6 +32,7 @@ export default Backbone.Router.extend({
 
     'userPage' : 'userPage',
     'addDeck' : 'addDeck',
+    'addDeckPage' : 'addDeckPage',
     'getDeck' : 'getDeck',
 
     'deckDetail/:id' : 'deckDetail',
@@ -114,7 +116,6 @@ export default Backbone.Router.extend({
   },
 
   addDeck() {
-    console.log(JSON.parse(Cookies.get('user')).user.access_key);
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
       method: 'POST',
@@ -122,6 +123,7 @@ export default Backbone.Router.extend({
         title: $('#deck').val(),
       }
     });
+
     $('.app').html('loading...');
     request.then((data) => {
       console.log('data:', data);
@@ -131,7 +133,7 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.navigate('deckDetail/:id', {trigger: true});
+      this.redirect('userPage');
     }).fail(() => {
       $('.app').html('Oops..');
     });
@@ -160,7 +162,6 @@ export default Backbone.Router.extend({
       $('.app').html('Oops..');
     });
   },
-
 
   addCard() {
     // console.log(JSON.parse(Cookies.get('user')));
@@ -204,13 +205,13 @@ export default Backbone.Router.extend({
   },
 
   loginPage() {
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-      document.querySelector('.header')
-    );
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render( 
       <LoginPage
@@ -223,13 +224,13 @@ export default Backbone.Router.extend({
   },
 
   registerPage() {
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-      document.querySelector('.header')
-    );
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render(
       <Register 
@@ -239,22 +240,34 @@ export default Backbone.Router.extend({
     );
   },
 
-  initialize() {
-    this.collection = new DeckCollection();
-  },
-
   userPage() {
-    ReactDom.render(
-      <Header
-        user={Cookies.getJSON('user')}
-        onLogoutClick={() => this.navigate('logout', {trigger: true})}
-        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-      document.querySelector('.header')
-    );
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     ReactDom.render(
       <UserPage
-      user={Cookies.getJSON('user')}
+        user={Cookies.getJSON('user')}
+        onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
+      document.querySelector('.app')
+    );
+  },
+
+  addDeckPage() {
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
+
+    ReactDom.render(
+      <AddDeckPage
       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}/>,
       document.querySelector('.app')
     );
@@ -270,12 +283,20 @@ export default Backbone.Router.extend({
     let ttObj = JSON.parse(titleThing);
     console.dir(ttObj.deck.title);
 
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
+
     ReactDom.render(
       <Table
-      people={Data}
-      title={ttObj.deck.title}
-      user={Cookies.getJSON('user')}
-      onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
+        people={Data}
+        title={ttObj.deck.title}
+        user={Cookies.getJSON('user')}
+        onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
     );
   }
