@@ -4,7 +4,7 @@ export default React.createClass({
 
   getStatus() {
     let user = this.props.user;
-    console.log(user);
+    // console.log(user); // returns "undefined"
     if (user) {
       let mesg = `Welcome ` + user.user.username;
       return (

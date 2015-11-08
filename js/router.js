@@ -108,7 +108,7 @@ export default Backbone.Router.extend({
     });
     $('.app').html('loading...');
     request.then((data) => {
-      console.log('data:', data);
+      // console.log('data:', data);
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
@@ -132,7 +132,7 @@ export default Backbone.Router.extend({
 
     $('.app').html('loading...');
     request.then((data) => {
-      console.log('data:', data);
+      // console.log('data:', data);
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
@@ -170,12 +170,13 @@ export default Backbone.Router.extend({
   },
 
   addCard() {
-    // console.log(JSON.parse(Cookies.get('user')));
-    let titleThing = Cookies.get('user');
-    let ttObj = JSON.parse(titleThing);
+    // console.log(Cookies.getJSON('user').deck.id);
+    console.log(JSON.parse(Cookies.get('user')));
+    // let titleThing = Cookies.get('user');
+    // let ttObj = JSON.parse(titleThing);
 
     // console.log('cookie', Cookies.getJSON('user'));
-    console.log(JSON.parse(Cookies.get('user')));
+    // console.log(JSON.parse(Cookies.get('user')));
 
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks/:id/cards`,
@@ -183,6 +184,7 @@ export default Backbone.Router.extend({
       data: {
         front: $('#cardFront').val(),
         back: $('#cardBack').val(),
+        // deck_id: Cookies.getJSON('user').deck.id,
       }
     });
     $('.app').html('loading...');
@@ -191,13 +193,15 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          auth_token: data.user.access_token
         }
       });
       this.redirect('deckDetail');
     }).fail(() => {
       $('.app').html('Oops..');
     });
+
+    // console.log(Cookies.getJSON('user').deck.id);
   },
 
   logout() {
@@ -264,7 +268,7 @@ export default Backbone.Router.extend({
     });
     $('.app').html('loading...');
     request.then((data) => {
-      console.log('decks:', data);
+      // console.log('decks:', data);
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
@@ -293,6 +297,8 @@ export default Backbone.Router.extend({
     //   document.querySelector('.header')
     // );
 
+    console.log(Cookies.get('user'));
+
     ReactDom.render(
       <AddDeckPage
       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}/>,
@@ -308,6 +314,13 @@ export default Backbone.Router.extend({
     //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
     //   document.querySelector('.header')
     // );
+
+    // function sendData (sData) {
+    //   location.search = sData;
+    // }
+
+    // console.log(Cookies.get('user'));
+    // console.log(Cookies.getJSON('user').deck.id);
 
     ReactDom.render(
       <DeckDetail
