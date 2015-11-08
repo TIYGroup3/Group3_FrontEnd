@@ -275,7 +275,7 @@ export default Backbone.Router.extend({
         <UserPage
           data={data.decks}
           user={Cookies.getJSON('user')}
-          onDeckSelect={() => this.navigate(`deckDetail/${data.decks.id}`, {trigger: true})}
+          onDeckSelect={id => this.navigate(`deckDetail/${id}`, {trigger: true})}
           onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
         document.querySelector('.app')
       );
@@ -300,7 +300,7 @@ export default Backbone.Router.extend({
     );
   },
 
-  deckDetail() {
+  deckDetail(id) {
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}

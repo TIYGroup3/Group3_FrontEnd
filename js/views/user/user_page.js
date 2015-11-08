@@ -4,8 +4,11 @@ import ReactDom from 'react-dom';
 export default React.createClass({
 
   getDeck(deck) {
+
+    let onDeckSelect = this.props.onDeckSelect;
+
     return (
-      <div key={deck.id} id={deck.id} className="individualDeck" onClick={this.props.onDeckSelect}>
+      <div key={deck.id} id={deck.id} className="individualDeck" onClick={() => onDeckSelect(deck.id)}>
         {deck.title}
       </div>
     );

@@ -429,8 +429,8 @@ exports['default'] = _backbone2['default'].Router.extend({
       _reactDom2['default'].render(_react2['default'].createElement(_viewsUserUser_page2['default'], {
         data: data.decks,
         user: _jsCookie2['default'].getJSON('user'),
-        onDeckSelect: function () {
-          return _this8.navigate('deckDetail/' + data.decks.id, { trigger: true });
+        onDeckSelect: function (id) {
+          return _this8.navigate('deckDetail/' + id, { trigger: true });
         },
         onAddDeckClick: function () {
           return _this8.navigate('addDeckPage', { trigger: true });
@@ -457,7 +457,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       } }), document.querySelector('.app'));
   },
 
-  deckDetail: function deckDetail() {
+  deckDetail: function deckDetail(id) {
     var _this10 = this;
 
     // ReactDom.render(
@@ -782,9 +782,14 @@ exports['default'] = _react2['default'].createClass({
   displayName: 'user_page',
 
   getDeck: function getDeck(deck) {
+
+    var onDeckSelect = this.props.onDeckSelect;
+
     return _react2['default'].createElement(
       'div',
-      { key: deck.id, id: deck.id, className: 'individualDeck', onClick: this.props.onDeckSelect },
+      { key: deck.id, id: deck.id, className: 'individualDeck', onClick: function () {
+          return onDeckSelect(deck.id);
+        } },
       deck.title
     );
   },
