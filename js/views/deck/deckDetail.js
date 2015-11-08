@@ -1,6 +1,5 @@
 import React from 'react';
 // import Grid from './grid';
-// import Input from './input';
 
 export default React.createClass({
 

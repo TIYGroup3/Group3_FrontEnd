@@ -12,11 +12,9 @@ import {
 import Register from './views/user/register';
 import LoginPage from './views/user/login';
 import AddDeckPage from './views/deck/addDeck';
-import Table from './views/deck/table';
+import DeckDetail from './views/deck/deckDetail';
 import UserPage from './views/user/user_page';
 // import Header from './views/user/header.js';
-
-import dummyData from './dummy_data';
 
 export default Backbone.Router.extend({
 
@@ -196,7 +194,7 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('deckDetail/:id');
+      this.redirect('deckDetail');
     }).fail(() => {
       $('.app').html('Oops..');
     });
@@ -277,7 +275,7 @@ export default Backbone.Router.extend({
         <UserPage
           data={data.decks}
           user={Cookies.getJSON('user')}
-          onDeckSelect={() => this.navigate('deckDetail/:id', {trigger: true})}
+          onDeckSelect={() => this.navigate(`deckDetail/${data.decks.id}`, {trigger: true})}
           onAddDeckClick={() => this.navigate('addDeckPage', {trigger: true})}/>,
         document.querySelector('.app')
       );
@@ -302,7 +300,7 @@ export default Backbone.Router.extend({
     );
   },
 
-  deckDetail(id) {
+  deckDetail() {
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -312,7 +310,8 @@ export default Backbone.Router.extend({
     // );
 
     ReactDom.render(
-      <Table
+      <DeckDetail
+      // deck={this.deck.title}
       user={Cookies.getJSON('user')}
       onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
       document.querySelector('.app')
