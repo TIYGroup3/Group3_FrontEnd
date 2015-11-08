@@ -1,18 +1,18 @@
-import React from 'react';
-import Row from './row';
+// import React from 'react';
+// import Row from './row';
 
-export default React.createClass({
+// export default React.createClass({
 
-  getRow(person) {
-    return <Row key={person.id} person={person}/>;
-  },
+//   getRow(person) {
+//     return <Row key={person.id} person={person}/>;
+//   },
 
-  render() {
-    return (
-      <tbody>
-        {this.props.data.map(this.getRow)}
-      </tbody>
-    );
-  }
+//   render() {
+//     return (
+//       <tbody>
+//         {this.props.data.map(this.getRow)}
+//       </tbody>
+//     );
+//   }
 
-}); 
+// }); 
