@@ -12,6 +12,7 @@ import {
 import Register from './views/user/register';
 import LoginPage from './views/user/login';
 import AddDeckPage from './views/deck/addDeck';
+import AddCardPage from './views/deck/addCard';
 import DeckDetail from './views/deck/deckDetail';
 import UserPage from './views/user/user_page';
 // import Header from './views/user/header.js';
@@ -34,6 +35,7 @@ export default Backbone.Router.extend({
     'getDeck' : 'getDeck',
 
     'deckDetail/:id' : 'deckDetail',
+    'addCardPage/:id' : 'addCardPage',
     'addCard'  : 'addCard',
 
     'checkUser' : 'checkUser',
@@ -194,7 +196,7 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('deckDetail');
+      this.redirect('userPage');
     }).fail(() => {
       $('.app').html('Oops..');
     });
@@ -300,6 +302,40 @@ export default Backbone.Router.extend({
     );
   },
 
+  addCardPage(id) {
+
+    let request = $.ajax({
+      url: `https://guarded-ridge-7410.herokuapp.com/decks`,
+      method: 'GET',
+      data: {
+        owner: 'mine',
+      }
+    });
+    $('.app').html('loading...');
+    request.then((data) => {
+      console.log('decks:', data);
+      Cookies.set('user', data);
+      $.ajaxSetup({
+        headers: {
+          auth_token: data.access_token
+        }
+      });
+      ReactDom.render(
+        <AddCardPage
+        onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
+        document.querySelector('.app')
+      );
+    }).fail(() => {
+      $('.app').html('Oops..');
+    });
+
+    // ReactDom.render(
+    //   <AddCardPage
+    //   onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
+    //   document.querySelector('.app')
+    // );
+  },
+
   deckDetail(id) {
     // ReactDom.render(
     //   <Header
@@ -309,11 +345,38 @@ export default Backbone.Router.extend({
     //   document.querySelector('.header')
     // );
 
+    // let request = $.ajax({
+    //   url: `https://guarded-ridge-7410.herokuapp.com/decks`,
+    //   method: 'GET',
+    //   data: {
+    //     owner: 'mine',
+    //   }
+    // });
+    // $('.app').html('loading...');
+    // request.then((data) => {
+    //   console.log('decks:', data);
+    //   Cookies.set('user', data);
+    //   $.ajaxSetup({
+    //     headers: {
+    //       auth_token: data.access_token
+    //     }
+    //   });
+    //   ReactDom.render(
+    //     <DeckDetail
+    //     // deck={this.deck.title}
+    //     user={Cookies.getJSON('user')}
+    //     onAddCardClick={() => this.navigate(`addCardPage/${id}`, {trigger: true})}/>,
+    //     document.querySelector('.app')
+    //   );
+    // }).fail(() => {
+    //   $('.app').html('Oops..');
+    // });
+
     ReactDom.render(
       <DeckDetail
       // deck={this.deck.title}
       user={Cookies.getJSON('user')}
-      onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
+      onAddCardClick={() => this.navigate(`addCardPage/${id}`, {trigger: true})}/>,
       document.querySelector('.app')
     );
   }
