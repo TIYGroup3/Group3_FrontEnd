@@ -5,7 +5,7 @@ export default React.createClass({
 
   getDeck(deck) {
     return (
-      <div key={deck.id} className="individualDeck" onClick={this.props.onDeckSelect}>
+      <div key={deck.id} id={deck.id} className="individualDeck" onClick={this.props.onDeckSelect}>
         {deck.title}
       </div>
     );

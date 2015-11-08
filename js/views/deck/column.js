@@ -1,19 +1,19 @@
-import React from 'react';
+// import React from 'react';
 
-export default React.createClass({
+// export default React.createClass({
 
-  getHeading(key) {
-    return <th key={key}>{key}</th>;
-  },
+//   getHeading(key) {
+//     return <th key={key}>{key}</th>;
+//   },
 
-  render() {
-    return (
-      <thead>
-        <tr>
-          {this.props.headingData.map(this.getHeading)}
-        </tr>
-      </thead>
-    );
-  }
+//   render() {
+//     return (
+//       <thead>
+//         <tr>
+//           {this.props.headingData.map(this.getHeading)}
+//         </tr>
+//       </thead>
+//     );
+//   }
 
-}); 
+// }); 
