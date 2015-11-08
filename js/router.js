@@ -295,6 +295,8 @@ export default Backbone.Router.extend({
     //   document.querySelector('.header')
     // );
 
+    console.log(Cookies.get('user'));
+
     ReactDom.render(
       <AddDeckPage
       onAddDeckClick={() => this.navigate('addDeck', {trigger: true})}/>,
@@ -310,6 +312,12 @@ export default Backbone.Router.extend({
     //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
     //   document.querySelector('.header')
     // );
+
+    // function sendData (sData) {
+    //   location.search = sData;
+    // }
+
+    console.log(Cookies.get('user'));
 
     ReactDom.render(
       <Table

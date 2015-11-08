@@ -482,6 +482,8 @@ exports['default'] = _backbone2['default'].Router.extend({
     //   document.querySelector('.header')
     // );
 
+    console.log(_jsCookie2['default'].get('user'));
+
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckAddDeck2['default'], {
       onAddDeckClick: function () {
         return _this9.navigate('addDeck', { trigger: true });
@@ -498,6 +500,12 @@ exports['default'] = _backbone2['default'].Router.extend({
     //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
     //   document.querySelector('.header')
     // );
+
+    // function sendData (sData) {
+    //   location.search = sData;
+    // }
+
+    console.log(_jsCookie2['default'].get('user'));
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckTable2['default'], {
       user: _jsCookie2['default'].getJSON('user'),
@@ -575,12 +583,6 @@ var _react2 = _interopRequireDefault(_react);
 
 exports["default"] = _react2["default"].createClass({
   displayName: "table",
-
-  // getHeadingData() {
-  //   let firstPerson = this.props.people[0];
-  //   let keys = Object.keys(firstPerson);
-  //   return keys.filter(key => key !== "id");
-  // },
 
   submitCard: function submitCard() {
     return _react2["default"].createElement(
