@@ -193,7 +193,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          'Access-Key': data.user.access_key
+          auth_token: data.access_token
         }
       });
       this.redirect('deckDetail/:id');

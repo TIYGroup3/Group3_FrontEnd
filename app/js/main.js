@@ -369,7 +369,7 @@ exports['default'] = _backbone2['default'].Router.extend({
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
-          'Access-Key': data.user.access_key
+          auth_token: data.access_token
         }
       });
       _this5.redirect('deckDetail/:id');
@@ -575,12 +575,6 @@ var _react2 = _interopRequireDefault(_react);
 
 exports["default"] = _react2["default"].createClass({
   displayName: "table",
-
-  // getHeadingData() {
-  //   let firstPerson = this.props.people[0];
-  //   let keys = Object.keys(firstPerson);
-  //   return keys.filter(key => key !== "id");
-  // },
 
   submitCard: function submitCard() {
     return _react2["default"].createElement(
