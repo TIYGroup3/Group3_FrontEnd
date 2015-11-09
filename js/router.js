@@ -38,7 +38,7 @@ export default Backbone.Router.extend({
 
     'deckDetail/:id' : 'deckDetail',
     'addCardPage/:id' : 'addCardPage',
-    'addCard'  : 'addCard',
+    'addCard/:id'  : 'addCard',
 
     'checkUser' : 'checkUser',
 
@@ -151,13 +151,13 @@ export default Backbone.Router.extend({
     });
   },
 
-  getDeck() {
-    console.log(JSON.parse(Cookies.get('user')).user.access_key);
+  addCard(id) {
     let request = $.ajax({
-      url: `https://guarded-ridge-7410.herokuapp.com/decks`,
-      method: 'GET',
+      url: `https://guarded-ridge-7410.herokuapp.com/decks/${id}/cards`,
+      method: 'POST',
       data: {
-        owner: 'mine',
+        front: $('#cardFront').val(),
+        back: $('#cardBack').val(),
       }
     });
     $('.app').html('loading...');
@@ -169,38 +169,10 @@ export default Backbone.Router.extend({
           auth_token: data.access_token
         }
       });
-      this.redirect('userPage');
-    }).fail(() => {
-      $('.app').html('Oops..');
-    });
-  },
-
-  addCard() {
-
-    let request = $.ajax({
-      url: `https://guarded-ridge-7410.herokuapp.com/decks/:id/cards`,
-      method: 'POST',
-      data: {
-        front: $('#cardFront').val(),
-        back: $('#cardBack').val(),
-        // deck_id: Cookies.getJSON('user').deck.id,
-      }
-    });
-    $('.app').html('loading...');
-    request.then((data) => {
-      console.log('data:', data);
-      Cookies.set('user', data);
-      $.ajaxSetup({
-        headers: {
-          auth_token: data.user.access_token
-        }
-      });
       this.navigate('userPage', {trigger: true});
     }).fail(() => {
       $('.app').html('Oops..');
     });
-
-    // console.log(Cookies.getJSON('user').deck.id);
   },
 
   logout() {
@@ -267,7 +239,6 @@ export default Backbone.Router.extend({
     });
     $('.app').html('loading...');
     request.then((data) => {
-      // console.log('decks:', data);
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
@@ -307,36 +278,32 @@ export default Backbone.Router.extend({
 
   addCardPage(id) {
 
-    // let request = $.ajax({
-    //   url: `https://guarded-ridge-7410.herokuapp.com/decks`,
-    //   method: 'GET',
-    //   data: {
-    //     owner: 'mine',
-    //   }
-    // });
-    // $('.app').html('loading...');
-    // request.then((data) => {
-    //   console.log('decks:', data);
-    //   Cookies.set('user', data);
-    //   $.ajaxSetup({
-    //     headers: {
-    //       auth_token: data.access_token
-    //     }
-    //   });
-    //   ReactDom.render(
-    //     <AddCardPage
-    //     onAddCardClick={id => this.navigate('addCard', {trigger: true})}/>,
-    //     document.querySelector('.app')
-    //   );
-    // }).fail(() => {
-    //   $('.app').html('Oops..');
-    // });
-
-    ReactDom.render(
-      <AddCardPage
-      onAddCardClick={id => this.navigate('addCard', {trigger: true})}/>,
-      document.querySelector('.app')
-    );
+    let request = $.ajax({
+      url: `https://guarded-ridge-7410.herokuapp.com/decks/${id}/cards`,
+      method: 'GET',
+      data: {
+        // front: 'cardFront',
+        // back: 'cardBack',
+      }
+    });
+    $('.app').html('loading...');
+    request.then((data) => {
+      console.log('data:', data);
+      Cookies.set('user', data);
+      $.ajaxSetup({
+        headers: {
+          auth_token: data.access_token
+          // 'Access-Key': data.user.access_key
+        }
+      });
+      ReactDom.render(
+        <AddCardPage
+        onAddCardClick={() => this.navigate(`addCard/${id}`, {trigger: true})}/>,
+        document.querySelector('.app')
+      );
+    }).fail(() => {
+      $('.app').html('Oops..');
+    });
   },
 
   deckDetail(id) {
@@ -377,14 +344,6 @@ export default Backbone.Router.extend({
     }).fail(() => {
       $('.app').html('Oops..');
     });
-
-    // ReactDom.render(
-    //   <DeckDetail
-    //   // deck={this.deck.title}
-    //   user={Cookies.getJSON('user')}
-    //   onAddCardClick={() => this.navigate(`addCardPage/${id}`, {trigger: true})}/>,
-    //   document.querySelector('.app')
-    // );
   }
   
 });

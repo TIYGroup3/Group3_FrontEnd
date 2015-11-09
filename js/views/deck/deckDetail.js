@@ -6,8 +6,7 @@ export default React.createClass({
   getCards(card) {
 
     return (
-      <div id={card.id}>
-        {card.id}
+      <div key={card.id} id={card.id}>
         {card.front}
         {card.back}
       </div>
