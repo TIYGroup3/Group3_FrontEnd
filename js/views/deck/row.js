@@ -11,10 +11,10 @@ import Cell from './cell';
 
 export default React.createClass({
 
-  getCells(person) {
+  getCells(card) {
     let cells = [];
     // key:value from object
-    _.each(person, (value, key) => {
+    _.each(card, (value, key) => {
       if (key !== 'id') {
         // unique key required for each element by react
         cells.push(<Cell key={key} field={value}/>);
@@ -25,7 +25,7 @@ export default React.createClass({
 
   render() {
     return (
-      <tr>{this.getCells(this.props.person)}</tr>
+      <tr>{this.getCells(this.props.card)}</tr>
     );
   }
 
