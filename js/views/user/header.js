@@ -12,6 +12,7 @@ export default React.createClass({
 
   logoutButton() {
     let user = this.props.user;
+    console.log(user);
     if(this.isLoggedIn()) {
       return (
         <span>Not <span className="nameClick" onClick={this.props.onUserClick}>{user.user.username}</span>?  <button onClick={this.props.onLogoutClick}>
