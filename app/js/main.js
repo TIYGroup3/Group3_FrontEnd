@@ -256,7 +256,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     });
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
-      console.log('data:', data);
+      // console.log('data:', data);
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
@@ -282,7 +282,7 @@ exports['default'] = _backbone2['default'].Router.extend({
 
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
-      console.log('data:', data);
+      // console.log('data:', data);
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
@@ -324,12 +324,6 @@ exports['default'] = _backbone2['default'].Router.extend({
   addCard: function addCard() {
     var _this5 = this;
 
-    // console.log(JSON.parse(Cookies.get('user')));
-    // let titleThing = Cookies.get('user');
-    // let ttObj = JSON.parse(titleThing);
-    // console.log('cookie', Cookies.getJSON('user'));
-    // console.log(JSON.parse(Cookies.get('user')));
-
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks/:id/cards',
       method: 'POST',
@@ -338,19 +332,22 @@ exports['default'] = _backbone2['default'].Router.extend({
         back: (0, _jquery2['default'])('#cardBack').val()
       }
     });
+    // deck_id: Cookies.getJSON('user').deck.id,
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
       console.log('data:', data);
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
-          auth_token: data.access_token
+          auth_token: data.user.access_token
         }
       });
       _this5.navigate('userPage', { trigger: true });
     }).fail(function () {
       (0, _jquery2['default'])('.app').html('Oops..');
     });
+
+    // console.log(Cookies.getJSON('user').deck.id);
   },
 
   logout: function logout() {
@@ -425,7 +422,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     });
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
-      console.log('decks:', data);
+      // console.log('decks:', data);
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
@@ -456,6 +453,8 @@ exports['default'] = _backbone2['default'].Router.extend({
     //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
     //   document.querySelector('.header')
     // );
+
+    console.log(_jsCookie2['default'].get('user'));
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckAddDeck2['default'], {
       onAddDeckClick: function () {
@@ -739,7 +738,7 @@ exports["default"] = _react2["default"].createClass({
 
   getStatus: function getStatus() {
     var user = this.props.user;
-    console.log(user);
+    // console.log(user); // returns "undefined"
     if (user) {
       var mesg = "Welcome " + user.user.username;
       return _react2["default"].createElement(
