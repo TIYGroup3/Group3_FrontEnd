@@ -17,7 +17,7 @@ import AddDeckPage from './views/deck/addDeck';
 import AddCardPage from './views/deck/addCard';
 import DeckDetail from './views/deck/deckDetail';
 import UserPage from './views/user/user_page';
-// import Header from './views/user/header.js';
+import Header from './views/user/header.js';
 
 export default Backbone.Router.extend({
 
@@ -128,6 +128,8 @@ export default Backbone.Router.extend({
   },
 
   addDeck() {
+    console.log(Cookies.getJSON('user'));
+
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
       method: 'POST',
@@ -183,7 +185,7 @@ export default Backbone.Router.extend({
       data: {
         front: $('#cardFront').val(),
         back: $('#cardBack').val(),
-        // deck_id: Cookies.getJSON('user').deck.id,
+        // deck_id: '69',
       }
     });
     $('.app').html('loading...');
@@ -192,7 +194,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.user.access_token
+          auth_token: data.access_token
         }
       });
       this.navigate('userPage', {trigger: true});
@@ -214,13 +216,13 @@ export default Backbone.Router.extend({
   },
 
   loginPage() {
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-    //   document.querySelector('.header')
-    // );
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
 
     ReactDom.render( 
       <LoginPage
@@ -233,13 +235,13 @@ export default Backbone.Router.extend({
   },
 
   registerPage() {
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-    //   document.querySelector('.header')
-    // );
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
 
     ReactDom.render(
       <Register 
@@ -250,13 +252,13 @@ export default Backbone.Router.extend({
   },
 
   userPage() {
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-    //   document.querySelector('.header')
-    // );
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
 
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
@@ -288,13 +290,13 @@ export default Backbone.Router.extend({
   },
 
   addDeckPage() {
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-    //   document.querySelector('.header')
-    // );
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
 
     console.log(Cookies.get('user'));
 
@@ -306,6 +308,15 @@ export default Backbone.Router.extend({
   },
 
   addCardPage(id) {
+
+    // NOT GOING TO MESS WITH THIS PAGE WHILE JONNY'S WORKING ON IT, SO LINES ARE COMMENTED OUT
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
 
     // let request = $.ajax({
     //   url: `https://guarded-ridge-7410.herokuapp.com/decks`,
@@ -340,14 +351,20 @@ export default Backbone.Router.extend({
   },
 
   deckDetail(id) {
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-    //   document.querySelector('.header')
-    // );
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
 
+    // function sendData (sData) {
+    //   location.search = sData;
+    // }
+
+    // console.log(Cookies.getJSON('user'));
+    // console.log(Cookies.getJSON('user').deck.id);
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks/${id}/cards`,
       method: 'GET',
