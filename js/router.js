@@ -17,7 +17,7 @@ import AddDeckPage from './views/deck/addDeck';
 import AddCardPage from './views/deck/addCard';
 import DeckDetail from './views/deck/deckDetail';
 import UserPage from './views/user/user_page';
-// import Header from './views/user/header.js';
+import Header from './views/user/header.js';
 
 export default Backbone.Router.extend({
 
@@ -188,6 +188,14 @@ export default Backbone.Router.extend({
   },
 
   loginPage() {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
+
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -207,6 +215,16 @@ export default Backbone.Router.extend({
   },
 
   registerPage() {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
+
+
+
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -224,6 +242,14 @@ export default Backbone.Router.extend({
   },
 
   userPage() {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
+
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -261,6 +287,14 @@ export default Backbone.Router.extend({
   },
 
   addDeckPage() {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
+
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -306,6 +340,16 @@ export default Backbone.Router.extend({
       $('.app').html('Oops..');
     });
 
+
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
+
+
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
@@ -317,6 +361,14 @@ export default Backbone.Router.extend({
   },
 
   deckDetail(id) {
+    ReactDom.render(
+      <Header
+        user={Cookies.getJSON('user')}
+        onLogoutClick={() => this.navigate('logout', {trigger: true})}
+        onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+      document.querySelector('.header')
+    );
+
     // ReactDom.render(
     //   <Header
     //     user={Cookies.getJSON('user')}
