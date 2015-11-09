@@ -700,9 +700,20 @@ exports["default"] = _react2["default"].createClass({
 
     return _react2["default"].createElement(
       "div",
-      { key: card.id, id: card.id },
-      card.front,
-      card.back
+      { className: "card", key: card.id, id: card.id },
+      _react2["default"].createElement(
+        "div",
+        { className: "cardFront" },
+        "Q: ",
+        card.front
+      ),
+      _react2["default"].createElement(
+        "div",
+        { className: "cardBack" },
+        "A: ",
+        card.back
+      ),
+      _react2["default"].createElement("hr", null)
     );
   },
 

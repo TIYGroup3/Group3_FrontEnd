@@ -50,6 +50,9 @@ table {
     margin: 10px;
     border: 1px solid black;
   }
+  .individualDeck:hover {
+    cursor: pointer;
+  }
 }
 
 .deckSelect {
@@ -92,4 +95,18 @@ table {
   button {
     margin: 10px 0;
   }
+}
+
+hr {
+  width: 75%;
+}
+
+.cardFront {
+  display: inline-block;
+  margin: 10px;
+
+}
+.cardBack {
+  display: inline-block;
+
 }
