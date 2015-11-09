@@ -265,6 +265,8 @@ exports['default'] = _backbone2['default'].Router.extend({
   addDeck: function addDeck() {
     var _this3 = this;
 
+    console.log(_jsCookie2['default'].getJSON('user'));
+
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks',
       method: 'POST',
@@ -333,14 +335,14 @@ exports['default'] = _backbone2['default'].Router.extend({
         back: (0, _jquery2['default'])('#cardBack').val()
       }
     });
-    // deck_id: Cookies.getJSON('user').deck.id,
+    // deck_id: '69',
     (0, _jquery2['default'])('.app').html('loading...');
     request.then(function (data) {
       console.log('data:', data);
       _jsCookie2['default'].set('user', data);
       _jquery2['default'].ajaxSetup({
         headers: {
-          auth_token: data.user.access_token
+          auth_token: data.access_token
         }
       });
       _this5.redirect('deckDetail');
@@ -478,7 +480,7 @@ exports['default'] = _backbone2['default'].Router.extend({
     //   location.search = sData;
     // }
 
-    // console.log(Cookies.get('user'));
+    console.log(_jsCookie2['default'].getJSON('user'));
     // console.log(Cookies.getJSON('user').deck.id);
 
     _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckDeckDetail2['default'],

@@ -122,6 +122,8 @@ export default Backbone.Router.extend({
   },
 
   addDeck() {
+    console.log(Cookies.getJSON('user'));
+
     let request = $.ajax({
       url: `https://guarded-ridge-7410.herokuapp.com/decks`,
       method: 'POST',
@@ -184,7 +186,7 @@ export default Backbone.Router.extend({
       data: {
         front: $('#cardFront').val(),
         back: $('#cardBack').val(),
-        // deck_id: Cookies.getJSON('user').deck.id,
+        // deck_id: '69',
       }
     });
     $('.app').html('loading...');
@@ -193,7 +195,7 @@ export default Backbone.Router.extend({
       Cookies.set('user', data);
       $.ajaxSetup({
         headers: {
-          auth_token: data.user.access_token
+          auth_token: data.access_token
         }
       });
       this.redirect('deckDetail');
@@ -319,7 +321,7 @@ export default Backbone.Router.extend({
     //   location.search = sData;
     // }
 
-    // console.log(Cookies.get('user'));
+    console.log(Cookies.getJSON('user'));
     // console.log(Cookies.getJSON('user').deck.id);
 
     ReactDom.render(
