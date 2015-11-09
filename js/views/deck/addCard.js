@@ -2,7 +2,7 @@ import React from 'react';
 
 export default React.createClass({
 
-  addCardButton(deck) {
+  addCardButton() {
 
     let onAddCardClick = this.props.onAddCardClick;
 
@@ -15,16 +15,14 @@ export default React.createClass({
 
   render() {
 
-    let deck = this.props.deck;
-    let cardFront = this.props.cardFront;
-    let cardBack = this.props.cardBack;
+    let card = this.props.card;
 
     return (
       <div>
         <div className="addCard">
           <label className="addCardTA">Front: <br/><textarea type="text" id="cardFront" className="front"/></label>
           <label className="addCardTA">Back: <br/><textarea type="text" id="cardBack" className="back"/></label>
-          {this.addCardButton(deck)}
+          {this.addCardButton()}
         </div>
       </div>
     );
