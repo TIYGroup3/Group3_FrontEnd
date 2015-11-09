@@ -1,11 +1,11 @@
-// import React from 'react';
+import React from 'react';
 
-// export default React.createClass({
+export default React.createClass({
 
-//   render() {
-//     return (
-//       <td>{this.props.field}</td>
-//     );
-//   }
+  render() {
+    return (
+      <td>{this.props.field}</td>
+    );
+  }
 
-// }); 
+}); 

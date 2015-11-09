@@ -3,6 +3,17 @@ import React from 'react';
 
 export default React.createClass({
 
+  getCards(card) {
+
+    return (
+      <div id={card.id}>
+        {card.id}
+        {card.front}
+        {card.back}
+      </div>
+    );
+  },
+
   addCardButton() {
     return (
       <button id="addCardButton" onClick={this.props.onAddCardClick}>
@@ -19,8 +30,9 @@ export default React.createClass({
         <div className="newCard">
           {this.addCardButton()}
         </div>
-        <table>
-        </table>
+        <div>
+          {this.props.data.map(this.getCards)}
+        </div>
       </div>
     );
   }

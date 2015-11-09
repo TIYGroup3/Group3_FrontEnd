@@ -182,13 +182,15 @@ exports['default'] = _backbone2['default'].Router.extend({
 
   },
 
-  initialize: function initialize(appElement) {
-    this.el = appElement;
+  // initialize: function(appElement) {
+  //   this.el = appElement;
 
-    this.decks = new _resources.DeckCollection();
+  //   this.decks = new DeckCollection();
 
-    var router = this;
-  },
+  //   this.cards = new CardCollection();
+
+  //   let router = this;
+  // },
 
   checkUser: function checkUser() {
     if (_jsCookie2['default'].get('user')) {
@@ -323,11 +325,10 @@ exports['default'] = _backbone2['default'].Router.extend({
     var _this5 = this;
 
     // console.log(JSON.parse(Cookies.get('user')));
-    var titleThing = _jsCookie2['default'].get('user');
-    var ttObj = JSON.parse(titleThing);
-
+    // let titleThing = Cookies.get('user');
+    // let ttObj = JSON.parse(titleThing);
     // console.log('cookie', Cookies.getJSON('user'));
-    console.log(JSON.parse(_jsCookie2['default'].get('user')));
+    // console.log(JSON.parse(Cookies.get('user')));
 
     var request = _jquery2['default'].ajax({
       url: 'https://guarded-ridge-7410.herokuapp.com/decks/:id/cards',
@@ -346,7 +347,7 @@ exports['default'] = _backbone2['default'].Router.extend({
           auth_token: data.access_token
         }
       });
-      _this5.redirect('userPage');
+      _this5.navigate('userPage', { trigger: true });
     }).fail(function () {
       (0, _jquery2['default'])('.app').html('Oops..');
     });
@@ -465,48 +466,6 @@ exports['default'] = _backbone2['default'].Router.extend({
   addCardPage: function addCardPage(id) {
     var _this10 = this;
 
-    var request = _jquery2['default'].ajax({
-      url: 'https://guarded-ridge-7410.herokuapp.com/decks',
-      method: 'GET',
-      data: {
-        owner: 'mine'
-      }
-    });
-    (0, _jquery2['default'])('.app').html('loading...');
-    request.then(function (data) {
-      console.log('decks:', data);
-      _jsCookie2['default'].set('user', data);
-      _jquery2['default'].ajaxSetup({
-        headers: {
-          auth_token: data.access_token
-        }
-      });
-      _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckAddCard2['default'], {
-        onAddCardClick: function () {
-          return _this10.navigate('addCard', { trigger: true });
-        } }), document.querySelector('.app'));
-    }).fail(function () {
-      (0, _jquery2['default'])('.app').html('Oops..');
-    });
-
-    // ReactDom.render(
-    //   <AddCardPage
-    //   onAddCardClick={() => this.navigate('addCard', {trigger: true})}/>,
-    //   document.querySelector('.app')
-    // );
-  },
-
-  deckDetail: function deckDetail(id) {
-    var _this11 = this;
-
-    // ReactDom.render(
-    //   <Header
-    //     user={Cookies.getJSON('user')}
-    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
-    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
-    //   document.querySelector('.header')
-    // );
-
     // let request = $.ajax({
     //   url: `https://guarded-ridge-7410.herokuapp.com/decks`,
     //   method: 'GET',
@@ -524,22 +483,67 @@ exports['default'] = _backbone2['default'].Router.extend({
     //     }
     //   });
     //   ReactDom.render(
-    //     <DeckDetail
-    //     // deck={this.deck.title}
-    //     user={Cookies.getJSON('user')}
-    //     onAddCardClick={() => this.navigate(`addCardPage/${id}`, {trigger: true})}/>,
+    //     <AddCardPage
+    //     onAddCardClick={id => this.navigate('addCard', {trigger: true})}/>,
     //     document.querySelector('.app')
     //   );
     // }).fail(() => {
     //   $('.app').html('Oops..');
     // });
 
-    _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckDeckDetail2['default'],
-    // deck={this.deck.title}
-    { user: _jsCookie2['default'].getJSON('user'),
-      onAddCardClick: function () {
-        return _this11.navigate('addCardPage/' + id, { trigger: true });
+    _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckAddCard2['default'], {
+      onAddCardClick: function (id) {
+        return _this10.navigate('addCard', { trigger: true });
       } }), document.querySelector('.app'));
+  },
+
+  deckDetail: function deckDetail(id) {
+    var _this11 = this;
+
+    // ReactDom.render(
+    //   <Header
+    //     user={Cookies.getJSON('user')}
+    //     onLogoutClick={() => this.navigate('logout', {trigger: true})}
+    //     onUserClick={() => this.navigate('userPage', {trigger: true})}/>,
+    //   document.querySelector('.header')
+    // );
+
+    var request = _jquery2['default'].ajax({
+      url: 'https://guarded-ridge-7410.herokuapp.com/decks/' + id + '/cards',
+      method: 'GET',
+      data: {
+        // front: 'cardFront',
+        // back: 'cardBack',
+      }
+    });
+    (0, _jquery2['default'])('.app').html('loading...');
+    request.then(function (data) {
+      console.log('data:', data);
+      _jsCookie2['default'].set('user', data);
+      _jquery2['default'].ajaxSetup({
+        headers: {
+          auth_token: data.access_token
+          // 'Access-Key': data.user.access_key
+        }
+      });
+      _reactDom2['default'].render(_react2['default'].createElement(_viewsDeckDeckDetail2['default'],
+      // deck={this.deck.title}
+      { data: data.cards,
+        user: _jsCookie2['default'].getJSON('user'),
+        onAddCardClick: function () {
+          return _this11.navigate('addCardPage/' + id, { trigger: true });
+        } }), document.querySelector('.app'));
+    }).fail(function () {
+      (0, _jquery2['default'])('.app').html('Oops..');
+    });
+
+    // ReactDom.render(
+    //   <DeckDetail
+    //   // deck={this.deck.title}
+    //   user={Cookies.getJSON('user')}
+    //   onAddCardClick={() => this.navigate(`addCardPage/${id}`, {trigger: true})}/>,
+    //   document.querySelector('.app')
+    // );
   }
 
 });
@@ -561,16 +565,22 @@ var _react2 = _interopRequireDefault(_react);
 exports["default"] = _react2["default"].createClass({
   displayName: "addCard",
 
-  addCardButton: function addCardButton() {
+  addCardButton: function addCardButton(deck) {
+
+    var onAddCardClick = this.props.onAddCardClick;
+
     return _react2["default"].createElement(
       "button",
-      { id: "addCardButton", onClick: this.props.onAddCardClick },
+      { id: "addCardButton", onClick: function () {
+          return onAddCardClick();
+        } },
       "Add Card"
     );
   },
 
   render: function render() {
 
+    var deck = this.props.deck;
     var cardFront = this.props.cardFront;
     var cardBack = this.props.cardBack;
 
@@ -594,7 +604,7 @@ exports["default"] = _react2["default"].createClass({
           _react2["default"].createElement("br", null),
           _react2["default"].createElement("textarea", { type: "text", id: "cardBack", className: "back" })
         ),
-        this.addCardButton()
+        this.addCardButton(deck)
       )
     );
   }
@@ -668,6 +678,17 @@ var _react2 = _interopRequireDefault(_react);
 exports["default"] = _react2["default"].createClass({
   displayName: "deckDetail",
 
+  getCards: function getCards(card) {
+
+    return _react2["default"].createElement(
+      "div",
+      { id: card.id },
+      card.id,
+      card.front,
+      card.back
+    );
+  },
+
   addCardButton: function addCardButton() {
     return _react2["default"].createElement(
       "button",
@@ -690,7 +711,11 @@ exports["default"] = _react2["default"].createClass({
         { className: "newCard" },
         this.addCardButton()
       ),
-      _react2["default"].createElement("table", null)
+      _react2["default"].createElement(
+        "div",
+        null,
+        this.props.data.map(this.getCards)
+      )
     );
   }
 });
